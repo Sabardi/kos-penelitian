@@ -27,6 +27,7 @@ class BookingController extends Controller
     {
         // return $request->all();
         $authUser = Auth::user()->id;
+        $orderNumber = 'ORD-' . now()->format('Ymd') . '-' . str_pad(Booking::max('id') + 1, 5, '0', STR_PAD_LEFT);
         $validated = $request->validate([
             // 'user_id' => 'required|exists:users,id',
             // 'room_id' => 'required|exists:rooms,id',
@@ -37,6 +38,8 @@ class BookingController extends Controller
 
         $validated['user_id'] = $authUser;
         $validated['room_id'] = $room;
+        $validated['order_number'] = $orderNumber;
+
 
         $booking = Booking::create($validated);
 
@@ -54,7 +57,7 @@ class BookingController extends Controller
             $interaction->save();
         }
 
-        return redirect()->route('home')->with('success', 'Booking berhasil!');
+        return redirect()->route('front.pesanan')->with('success', 'Booking berhasil!');
     }
 
     public function updateStatus(Request $request, $id)

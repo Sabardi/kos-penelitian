@@ -100,191 +100,48 @@
         <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <h2 class="mb-4 text-2xl font-semibold text-gray-900 dark:text-white">Rekomendasi Kosan</h2>
             <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                <!-- Card 1 -->
+                @foreach ($recommendedRooms as $recomedation)
                 <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
+                    <a href="{{ route('front.detail', $recomedation) }}">
+                        <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                            src="{{ Storage::url($recomedation->foto_room) }}" width="600" />
+                    </a>
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Toska Binus Kemanggisan
+                        <div class="flex items-center mt-2">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">
+                                <i class="mr-1 fas fa-eye"></i>{{ $recomedation->count_visitor }} views
+                            </span>
+                            <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
+                                <i class="mr-1 fas fa-star"></i>
+                                {{-- {{ number_format($recomedation->average_rating, 1) }} --}}
+                                5.0
+                                rating
+                            </span>
+                        </div>
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                            {{ $recomedation->property->name }}-{{ $recomedation->name }}
                         </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kelurahan Palmerah, Palmerah
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.275.000 /bulan
+                        <p class="text-base text-gray-600 dark:text-gray-400">
+                            {{ $recomedation->property->regency }}
                         </p>
                         <div class="flex items-center mt-2">
                             <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                3.3 km dari Stasiun MRT Bundaran Senayan
-                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                @foreach ($recomedation->facilities as $facility)
+                                    <span class="text-xs border badge bg-light text-dark">
+                                        <i class="me-1"></i>{{ $facility->name }}
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Smart Cipete
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Gandaria Selatan, Cilandak
-                        </p>
                         <p class="text-lg font-bold text-red-500">
-                            Rp2.575.000 /bulan
+                            Rp{{ $recomedation->price }} /bulan
                         </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                520 m dari Stasiun MRT Cipete Raya
-                            </p>
-                        </div>
                     </div>
                 </div>
-                <!-- Card 3 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Teraputi Duren Sawit
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Malaka Sari, Duren Sawit
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp1.203.999 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.2 km dari Stasiun LRT Jatinegara Baru
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita E Homes Kebon Jeruk
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kebon Jeruk, Kebon Jeruk
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.375.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.7 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 1 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Toska Binus Kemanggisan
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kelurahan Palmerah, Palmerah
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.275.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                3.3 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Smart Cipete
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Gandaria Selatan, Cilandak
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.575.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                520 m dari Stasiun MRT Cipete Raya
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Teraputi Duren Sawit
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Malaka Sari, Duren Sawit
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp1.203.999 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.2 km dari Stasiun LRT Jatinegara Baru
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita E Homes Kebon Jeruk
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kebon Jeruk, Kebon Jeruk
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.375.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.7 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -294,191 +151,135 @@
             <h2 class="mb-4 text-2xl font-semibold text-gray-900 dark:text-white">Semua Kos kosan</h2>
             <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                 <!-- Card 1 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Toska Binus Kemanggisan
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kelurahan Palmerah, Palmerah
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.275.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                3.3 km dari Stasiun MRT Bundaran Senayan
+                @forelse ($rooms as $room)
+                    <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <a href="{{ route('front.detail', $room) }}">
+                            <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                                src="{{ Storage::url($room->foto_room) }}" width="600" />
+                        </a>
+                        <div class="p-4">
+                            <div class="flex items-center mt-2">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-eye"></i>{{ $room->count_visitor }} views
+                                </span>
+                                <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-star"></i>{{ number_format($room->average_rating, 1) }} rating
+                                </span>
+                            </div>
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                {{ $room->property->name }}-{{ $room->name }}
+                            </h3>
+                            <p class="text-base text-gray-600 dark:text-gray-400">
+                                {{ $room->property->regency }}
+                            </p>
+                            <div class="flex items-center mt-2">
+                                <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach ($room->facilities as $facility)
+                                        <span class="text-xs border badge bg-light text-dark">
+                                            <i class="me-1"></i>{{ $facility->name }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-lg font-bold text-red-500">
+                                Rp{{ $room->price }} /bulan
                             </p>
                         </div>
                     </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Smart Cipete
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Gandaria Selatan, Cilandak
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.575.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                520 m dari Stasiun MRT Cipete Raya
+                @empty
+                    <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                            src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
+                            width="600" />
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                Rukita Toska Binus Kemanggisan
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Kelurahan Palmerah, Palmerah
+                            </p>
+                            <div class="flex items-center mt-2">
+                                <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    3.3 km dari Stasiun MRT Bundaran Senayan
+                                </p>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-eye"></i>0 views
+                                </span>
+                                <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-star"></i>0 rating
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-lg font-bold text-red-500">
+                                Rp2.275.000 /bulan
                             </p>
                         </div>
                     </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Teraputi Duren Sawit
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Malaka Sari, Duren Sawit
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp1.203.999 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.2 km dari Stasiun LRT Jatinegara Baru
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita E Homes Kebon Jeruk
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kebon Jeruk, Kebon Jeruk
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.375.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.7 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 1 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Toska Binus Kemanggisan
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kelurahan Palmerah, Palmerah
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.275.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                3.3 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Smart Cipete
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Gandaria Selatan, Cilandak
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.575.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                520 m dari Stasiun MRT Cipete Raya
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita Teraputi Duren Sawit
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Malaka Sari, Duren Sawit
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp1.203.999 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.2 km dari Stasiun LRT Jatinegara Baru
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                        src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
-                        width="600" />
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Rukita E Homes Kebon Jeruk
-                        </h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Kebon Jeruk, Kebon Jeruk
-                        </p>
-                        <p class="text-lg font-bold text-red-500">
-                            Rp2.375.000 /bulan
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">
-                                4.7 km dari Stasiun MRT Bundaran Senayan
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
 </x-app-layout>
+
+{{-- <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <!-- Card 1 -->
+    @forelse ($rooms as $room)
+        <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                src="{{ Storage::url($room->foto_room) }}" width="600" />
+            <div class="p-4">
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                    {{ $room->property->name }}-{{ $room->name }}
+                </h3>
+                <p class="text-base text-gray-600 dark:text-gray-400">
+                    {{ $room->property->regency }}
+                </p>
+                <div class="flex items-center mt-2">
+                    <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                    <div class="flex flex-wrap gap-2">
+                        @foreach ($room->facilities as $facility)
+                            <span class="text-xs border badge bg-light text-dark">
+                                <i class="me-1"></i>{{ $facility->name }}
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                <p class="text-lg font-bold text-red-500">
+                    Rp{{ $room->price }} /bulan
+                </p>
+            </div>
+        </div>
+    @empty
+        <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
+                width="600" />
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Rukita Toska Binus Kemanggisan
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Kelurahan Palmerah, Palmerah
+                </p>
+                <p class="text-lg font-bold text-red-500">
+                    Rp2.275.000 /bulan
+                </p>
+                <div class="flex items-center mt-2">
+                    <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        3.3 km dari Stasiun MRT Bundaran Senayan
+                    </p>
+                </div>
+            </div>
+        </div>
+    @endforelse
+</div> --}}

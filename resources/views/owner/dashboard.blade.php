@@ -172,12 +172,13 @@
 
             <!-- Advert Cards -->
             <div class="grid grid-cols-1 gap-4 p-6 -full md:grid-cols-3 lg:grid-cols-4">
-                <x-owner.advert-card />
-                <x-owner.advert-card />
-                <x-owner.advert-card />
-                <x-owner.advert-card />
-                <x-owner.advert-card />
-                <x-owner.advert-card />
+                @forelse ($rooms as $room)
+                    <x-owner.advert-card />
+                @empty
+                    <div class="col-span-3 text-center">
+                        <p class="text-lg font-semibold text-gray-600">No rooms available.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>

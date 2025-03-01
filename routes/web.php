@@ -1,11 +1,19 @@
 <?php
 
+use App\Http\Controllers\Front\FronController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+
+Route::get('/', [FronController::class, 'index'])->name('home');
+
+Route::get('/room/{room}', [FronController::class, 'show'])->name('front.detail');
+
+
 
 Route::get('/about', function () {
     return view('about');
@@ -27,8 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
-require __DIR__.'/owner.php';
-require __DIR__.'/tenant.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/owner.php';
+require __DIR__ . '/tenant.php';

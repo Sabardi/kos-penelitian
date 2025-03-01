@@ -1,24 +1,3 @@
-<style>
-    #searchLocation {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .location-item {
-        margin-bottom: 5px;
-    }
-
-    #selectedLocations {
-        background: #f5f5f5;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
-</style>
-
 <x-form action="{{ isset($property) ? route('owner.owner.update-kos', $property->id) : route('owner.owner.save-kos') }}"
     method="POST">
     @csrf

@@ -1,5 +1,5 @@
 <x-dashboard-layout>
-    <section>
+    <section class="container mx-auto">
         <div id="main" class="flex-1 h-full pb-24 mt-12 bg-gray-100 main-content md:mt-2 md:pb-5">
             <!-- Header untuk Room -->
             <x-owner.header title="Room" />
@@ -46,29 +46,28 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 p-6 -full md:grid-cols-3 lg:grid-cols-4">
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
 
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
+                @forelse ($rooms as $room)
+                    <x-owner.room-card imageSrc="{{ Storage::url($room->foto_room) }}" title="{{ $room->name }}"
+                        location="{{ $room->property->address }}" price="Rp2.575.000 /bulan"
+                        editUrl="{{ route('owner.room.edit', [$property, $room]) }}"
+                        deleteUrl="{{ route('owner.room.delete', [$property, $room]) }}" />
 
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
+                @empty
+                @endforelse
 
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
-
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
-
-                <x-owner.room-card imageSrc="{{ asset('path/to/image.jpg') }}" title="Rukita Smart Cipete"
-                    location="Gandaria Selatan, Cilandak" price="Rp2.575.000 /bulan"
-                    distance="520 m dari Stasiun MRT Cipete Raya" {{-- :id="$room->id" --}} />
+                <div
+                    class="flex items-center justify-center p-4 border border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-gray-400">
+                    <a href="{{ route('owner.room.create', $property) }}"
+                        class="flex flex-col items-center justify-center w-full h-full">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                            </path>
+                        </svg>
+                        <span class="mt-2 text-sm font-medium text-gray-600">Tambah Kamar</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>

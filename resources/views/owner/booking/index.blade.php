@@ -1,5 +1,5 @@
 <x-dashboard-layout>
-    <section>
+    <section class="container mx-auto">
         <div id="main" class="flex-1 h-full pb-24 mt-12 bg-gray-100 main-content md:mt-2 md:pb-5">
             <!-- Header untuk Room -->
             <x-owner.header title="Booking" />
@@ -45,130 +45,75 @@
                 </nav>
             </div>
 
-            <table class="w-full whitespace-no-wrap">
-                <thead>
-                    <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase">Nama Kamar</th>
-                        <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase">Pemesan</th>
-                        <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase">Tanggal Check-in
-                        </th>
-                        <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-3 text-xs font-medium text-left text-gray-500 uppercase">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- @foreach ($bookings as $booking) --}}
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            $booking->room->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->check_in_date
-                        </td>
-                        {{-- <td class="px-4 py-3">
-                                @if ($booking->status == 'checked_in')
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Checked
-                                        In</span>
-                                @elseif($booking->status == 'checked_out')
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Checked
-                                        Out</span>
-                                @else
-                                    <span
-                                        class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
-                                @endif
-                            </td> --}}
-                        {{-- <td class="px-4 py-3">
-                                <a href="{{ route('bookings.show', $booking->id) }}"
-                                    class="text-blue-600 hover:text-blue-900">View</a>
-                            </td> --}}
-                    </tr>
+            <div class="overflow-x-auto">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr
+                            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-6 py-3">Nama Kamar</th>
+                            <th class="px-6 py-3">Pemesan</th>
+                            <th class="px-6 py-3">Tanggal Check-in</th>
+                            <th class="px-6 py-3">Status</th>
+                            <th class="px-6 py-3">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            $booking->room->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->check_in_date
-                        </td>
-                        {{-- <td class="px-4 py-3">
-                                @if ($booking->status == 'checked_in')
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Checked
-                                        In</span>
-                                @elseif($booking->status == 'checked_out')
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Checked
-                                        Out</span>
-                                @else
-                                    <span
-                                        class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
-                                @endif
-                            </td> --}}
-                        {{-- <td class="px-4 py-3">
-                                <a href="{{ route('bookings.show', $booking->id) }}"
-                                    class="text-blue-600 hover:text-blue-900">View</a>
-                            </td> --}}
-                    </tr>
+                        {{-- buat dara fake nya --}}
+                        @php
+                            $bookings = [
+                                (object)[
+                                    'room' => (object)['name' => 'Room 101'],
+                                    'user' => (object)['name' => 'John Doe'],
+                                    'check_in_date' => '2025-01-01',
+                                    'status' => 'checked_in',
+                                    'id' => 1
+                                ],
+                                (object)[
+                                    'room' => (object)['name' => 'Room 102'],
+                                    'user' => (object)['name' => 'Jane Smith'],
+                                    'check_in_date' => '2025-01-02',
+                                    'status' => 'pending',
+                                    'id' => 2
+                                ],
+                                (object)[
+                                    'room' => (object)['name' => 'Room 103'],
+                                    'user' => (object)['name' => 'Alice Johnson'],
+                                    'check_in_date' => '2025-01-03',
+                                    'status' => 'checked_out',
+                                    'id' => 3
+                                ],
+                            ];
+                        @endphp
 
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            $booking->room->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->user->name
-                        </td>
-                        <td class="px-4 py-3">
-                            $booking->check_in_date
-                        </td>
-                        {{-- <td class="px-4 py-3">
-                                @if ($booking->status == 'checked_in')
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Checked
-                                        In</span>
-                                @elseif($booking->status == 'checked_out')
-                                    <span
-                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Checked
-                                        Out</span>
-                                @else
-                                    <span
-                                        class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
-                                @endif
-                            </td> --}}
-                        {{-- <td class="px-4 py-3">
-                                <a href="{{ route('bookings.show', $booking->id) }}"
-                                    class="text-blue-600 hover:text-blue-900">View</a>
-                            </td> --}}
-                    </tr>
-                    {{-- @endforeach --}}
-                </tbody>
-            </table>
+                        @foreach ($bookings as $booking)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3">{{ $booking->room->name }}</td>
+                                <td class="px-4 py-3">{{ $booking->user->name }}</td>
+                                <td class="px-4 py-3">{{ $booking->check_in_date }}</td>
+                                <td class="px-4 py-3">
+                                    @if ($booking->status == 'checked_in')
+                                        <span
+                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Checked
+                                            In</span>
+                                    @elseif($booking->status == 'checked_out')
+                                        <span
+                                            class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Checked
+                                            Out</span>
+                                    @else
+                                        <span
+                                            class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href=""
+                                        class="text-blue-600 hover:text-blue-900">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 </x-dashboard-layout>

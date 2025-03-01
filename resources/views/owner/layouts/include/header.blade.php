@@ -12,7 +12,7 @@
             <div class="flex justify-center flex-1 px-2 text-white md:w-1/3 md:justify-start">
                 <span class="relative w-full">
                     <div class="text-lg font-bold">
-                        Selamat datang administrator
+                        Selamat datang 
                     </div>
                 </span>
             </div>
@@ -22,7 +22,7 @@
                     <li class="flex-1 md:flex-none md:mr-3">
                         <div class="relative inline-block">
                             <button onclick="toggleDD('myDropdown')" class="px-2 py-2 text-white drop-button">
-                                <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, User <svg
+                                <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, {{Auth::user()->name}} <svg
                                     class="inline h-3 fill-current" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
                                     <path

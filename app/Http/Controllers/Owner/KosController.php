@@ -82,43 +82,41 @@ class KosController extends Controller
 
 
 
-    public function update(Request $request, $property)
+    public function update(Request $request, $id)
     {
         // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'type' => 'required|string',
-            'time_period' => 'required|date',
+            'time_period' => 'required|string',
             'address' => 'required|string',
             'regency' => 'required|string',
-            'locations' => 'required|array',
-            'locations.*.distance' => 'required|numeric|min:0.01', // Validasi jarak
+            'locations' => 'array',
+            'distances' => 'array',
+            'distances.*' => 'numeric|min:0.01',
         ]);
 
         // Temukan properti berdasarkan ID
-        $property = Properties::findOrFail($property);
+        $property = Properties::findOrFail($id);
 
-        // Gunakan transaksi database untuk memastikan semua data masuk atau batal jika ada error
         DB::beginTransaction();
         try {
             // Perbarui data properti
             $property->update($validated);
 
-            // Hapus lokasi lama dan simpan lokasi baru
-            $property->locations()->detach(); // Hapus semua relasi lokasi sebelumnya
-            foreach ($request->locations as $locationId => $data) {
-                if (!empty($data['distance'])) {
-                    $property->locations()->attach($locationId, ['distance' => $data['distance']]);
+            // Sinkronisasi lokasi & jarak dengan pivot table
+            $syncData = [];
+            foreach ($request->locations as $locationId) {
+                if (!empty($request->distances[$locationId])) {
+                    $syncData[$locationId] = ['distance' => $request->distances[$locationId]];
                 }
             }
+            $property->locations()->sync($syncData);
 
-            // Commit transaksi jika semuanya berhasil
             DB::commit();
-
-            return redirect()->route('owner.dashboard.owner')->with('success', 'Properti berhasil diperbarui.');
+            return redirect()->route('owner.dashboard')->with('success', 'Properti berhasil diperbarui.');
         } catch (\Exception $e) {
-            // Rollback transaksi jika terjadi error
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

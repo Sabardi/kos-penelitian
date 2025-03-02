@@ -19,3 +19,4 @@ Route::group(['middleware' => 'role:tenant'], function () {
     Route::get('/rating/room/{room}', [RateController::class, 'create'])->name('front.pesanan.rating');
     Route::post('/rating/room/{booking}/{room}', [RateController::class, 'store'])->name('front.rating.store');
 });
+

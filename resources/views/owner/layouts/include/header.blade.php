@@ -12,7 +12,7 @@
             <div class="flex justify-center flex-1 px-2 text-white md:w-1/3 md:justify-start">
                 <span class="relative w-full">
                     <div class="text-lg font-bold">
-                        Selamat datang 
+                        Selamat datang
                     </div>
                 </span>
             </div>
@@ -30,10 +30,10 @@
                                 </svg></button>
                             <div id="myDropdown"
                                 class="absolute right-0 z-30 invisible p-3 mt-3 overflow-auto text-white bg-gray-800 dropdownlist">
-                                <a href="#"
+                                <a href="{{ route('profile.edit') }}"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-user fa-fw"></i> Profile</a>
-                                <a href="#"
+                                <a href="{{ route('owner.edit-kos', $property) }}"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-cog fa-fw"></i> Settings</a>
                                 <div class="border border-gray-800"></div>

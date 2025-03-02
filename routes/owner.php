@@ -14,7 +14,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     // })->name('owner.dashboard');
 
     Route::get('/owner/dashboard', DashboardOwnerController::class)->name('owner.dashboard');
-    
+
     Route::get('/owner/rooms/booking', function () {
         return view('owner.booking.index');
     })->name('owner.rooms.bookings');
@@ -24,12 +24,13 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 
     Route::get('/register/kos', [KosController::class, 'showFillKosForm'])->name('owner.fill-kos');
     Route::post('/store/kos', [KosController::class, 'store'])->name('owner.save-kos');
+    Route::get('/edit/kos/{property}', [KosController::class, 'showEditKosForm'])->name('owner.edit-kos');
+    Route::put('/update/kos/{property}', [KosController::class, 'update'])->name('owner.update-kos');
+
     // booking
     Route::get('/booking/{property}', [BookingController::class, 'index'])->name('owner.booking');
     Route::post('/bookings/{id}/update-status', [BookingController::class, 'updateStatus'])->name('bookings.updateStatus');
 
-    Route::get('/edit/kos/{property}', [KosController::class, 'showEditKosForm'])->name('owner.edit-kos');
-    Route::put('/update/kos/{property}', [KosController::class, 'update'])->name('owner.update-kos');
 
     // room
     Route::get('/owner/rooms/{property}', [RoomController::class, 'index'])->name('owner.rooms');

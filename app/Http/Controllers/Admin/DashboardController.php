@@ -12,7 +12,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // return "oke";
+        return "oke";
         return view('admin.dashboard');
     }
 }

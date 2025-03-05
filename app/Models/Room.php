@@ -23,16 +23,18 @@ class Room extends Model
     ];
 
 
-    public function AvibleRoomDescription(): Attribute
-    {
-        return Attribute::make(fn() => $this->availability ? AvibleRoomEnum::getDescription((string) $this->availability) : null);
-    }
+
+
 
     public function property()
     {
         return $this->belongsTo(Properties::class);
     }
 
+    public function AvibleRoomDescription(): Attribute
+    {
+        return Attribute::make(fn() => $this->availability ? AvibleRoomEnum::getDescription((string) $this->availability) : null);
+    }
     public function facilities()
     {
         return $this->belongsToMany(Facility::class, 'rooms_facilities')->withTimestamps();

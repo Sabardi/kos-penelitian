@@ -153,11 +153,11 @@
 
             <!-- Metric Cards -->
             <div class="flex flex-wrap">
-                <x-owner.metric-card title="Total Room" value="3249" icon="fa fa-wallet" borderColor="border-green-600"
-                    bgColor="from-green-200 to-green-100" textColor="bg-green-600" />
-                <x-owner.metric-card title="Total Pengunjung" value="249" icon="fas fa-users"
+                <x-owner.metric-card title="Total Room" value="{{ $countRoom }}" icon="fa fa-wallet"
+                    borderColor="border-green-600" bgColor="from-green-200 to-green-100" textColor="bg-green-600" />
+                <x-owner.metric-card title="Total Pengunjung" value="{{ $totalVisitors }}" icon="fas fa-users"
                     borderColor="border-pink-500" bgColor="from-pink-200 to-pink-100" textColor="bg-pink-600" />
-                <x-owner.metric-card title="Total Penyewa" value="2" icon="fas fa-user-plus"
+                <x-owner.metric-card title="Total Penyewa" value="{{ $totalRent }}" icon="fas fa-user-plus"
                     borderColor="border-yellow-600" bgColor="from-yellow-200 to-yellow-100" textColor="bg-yellow-600" />
                 <x-owner.metric-card title="Rating" value="152 days" icon="fas fa-server" borderColor="border-blue-500"
                     bgColor="from-blue-200 to-blue-100" textColor="bg-blue-600" />
@@ -173,7 +173,9 @@
             <!-- Advert Cards -->
             <div class="grid grid-cols-1 gap-4 p-6 -full md:grid-cols-3 lg:grid-cols-4">
                 @forelse ($rooms as $room)
-                    <x-owner.advert-card />
+                    <x-owner.advert-card title="{{ $room->name }}" location="{{ $room->property->address }}"
+                        price="{{ $room->price }}" distance="{{ $room->property->distance }}"
+                        imageSrc="{{ Storage::url($room->foto_room) }}" />
                 @empty
                     <div class="col-span-3 text-center">
                         <p class="text-lg font-semibold text-gray-600">No rooms available.</p>

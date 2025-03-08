@@ -6,7 +6,7 @@ use App\Enums\AvibleRoomEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 class Room extends Model
 {
     use HasFactory;
@@ -22,6 +22,18 @@ class Room extends Model
         'foto_room',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($room) {
+            $room->slug = Str::slug($room->name); // Buat slug dari name
+        });
+
+        static::updating(function ($room) {
+            $room->slug = Str::slug($room->name); // Perbarui slug jika name berubah
+        });
+    }
 
 
 

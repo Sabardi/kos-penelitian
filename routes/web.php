@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FronController::class, 'index'])->name('home');
 
-Route::get('/room/{room}', [FronController::class, 'show'])->name('front.detail');
+Route::get('/room/{room}/{slug}', [FronController::class, 'show'])->name('front.detail');
 
 
 

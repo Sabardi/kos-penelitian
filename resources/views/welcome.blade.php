@@ -101,46 +101,46 @@
             <h2 class="mb-4 text-2xl font-semibold text-gray-900 dark:text-white">Rekomendasi Kosan</h2>
             <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                 @foreach ($recommendedRooms as $recomedation)
-                <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <a href="{{ route('front.detail', $recomedation) }}">
-                        <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
-                            src="{{ Storage::url($recomedation->foto_room) }}" width="600" />
-                    </a>
-                    <div class="p-4">
-                        <div class="flex items-center mt-2">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">
-                                <i class="mr-1 fas fa-eye"></i>{{ $recomedation->count_visitor }} views
-                            </span>
-                            <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
-                                <i class="mr-1 fas fa-star"></i>
-                                {{-- {{ number_format($recomedation->average_rating, 1) }} --}}
-                                5.0
-                                rating
-                            </span>
-                        </div>
-                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                            {{ $recomedation->property->name }}-{{ $recomedation->name }}
-                        </h3>
-                        <p class="text-base text-gray-600 dark:text-gray-400">
-                            {{ $recomedation->property->regency }}
-                        </p>
-                        <div class="flex items-center mt-2">
-                            <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
-                            <div class="flex flex-wrap gap-2">
-                                @foreach ($recomedation->facilities as $facility)
-                                    <span class="text-xs border badge bg-light text-dark">
-                                        <i class="me-1"></i>{{ $facility->name }}
-                                    </span>
-                                @endforeach
+                    <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <a href="{{ route('front.detail', [$recomedation, $recomedation->slug]) }}">
+                            <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
+                                src="{{ Storage::url($recomedation->foto_room) }}" width="600" />
+                        </a>
+                        <div class="p-4">
+                            <div class="flex items-center mt-2">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-eye"></i>{{ $recomedation->count_visitor }} views
+                                </span>
+                                <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="mr-1 fas fa-star"></i>
+                                    {{-- {{ number_format($recomedation->average_rating, 1) }} --}}
+                                    5.0
+                                    rating
+                                </span>
+                            </div>
+                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                {{ $recomedation->property->name }}-{{ $recomedation->name }}
+                            </h3>
+                            <p class="text-base text-gray-600 dark:text-gray-400">
+                                {{ $recomedation->property->regency }}
+                            </p>
+                            <div class="flex items-center mt-2">
+                                <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                                <div class="flex flex-wrap gap-2">
+                                    @foreach ($recomedation->facilities as $facility)
+                                        <span class="text-xs border badge bg-light text-dark">
+                                            <i class="me-1"></i>{{ $facility->name }}
+                                        </span>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
+                        <div class="p-4">
+                            <p class="text-lg font-bold text-red-500">
+                                Rp{{ $recomedation->price }} /bulan
+                            </p>
+                        </div>
                     </div>
-                    <div class="p-4">
-                        <p class="text-lg font-bold text-red-500">
-                            Rp{{ $recomedation->price }} /bulan
-                        </p>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -153,7 +153,7 @@
                 <!-- Card 1 -->
                 @forelse ($rooms as $room)
                     <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                        <a href="{{ route('front.detail', $room) }}">
+                        <a href="{{ route('front.detail', [$room, $room->slug]) }}">
                             <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
                                 src="{{ Storage::url($room->foto_room) }}" width="600" />
                         </a>
@@ -163,7 +163,8 @@
                                     <i class="mr-1 fas fa-eye"></i>{{ $room->count_visitor }} views
                                 </span>
                                 <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
-                                    <i class="mr-1 fas fa-star"></i>{{ number_format($room->average_rating, 1) }} rating
+                                    <i class="mr-1 fas fa-star"></i>{{ number_format($room->average_rating, 1) }}
+                                    rating
                                 </span>
                             </div>
                             <h3 class="text-base font-semibold text-gray-900 dark:text-white">
@@ -175,11 +176,15 @@
                             <div class="flex items-center mt-2">
                                 <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
                                 <div class="flex flex-wrap gap-2">
-                                    @foreach ($room->facilities as $facility)
+                                    @foreach ($room->facilities->take(3) as $facility)
                                         <span class="text-xs border badge bg-light text-dark">
                                             <i class="me-1"></i>{{ $facility->name }}
                                         </span>
                                     @endforeach
+                                    <span class="text-xs border badge bg-light text-dark">
+                                        <i class="me-1"></i>+ {{ $room->facilities->count() - 3 }} more
+                                    </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>

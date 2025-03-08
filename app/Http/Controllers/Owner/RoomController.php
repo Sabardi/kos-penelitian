@@ -96,62 +96,105 @@ class RoomController extends Controller
     }
 
 
-    // public function edit($property, Room $room)
-    // {
-    //     $facilities = Facility::all(); // get all facilities
-    //     return view('admin.room.edit', compact('property', 'facilities', 'room'));
-    // }
-
     public function edit($property, Room $room)
     {
-        $facilities = Facility::all(); // get all facilities
+        $facilities = Facility::all();
         return view('owner.room.edit', compact('property', 'room', 'facilities'));
     }
 
 
-    public function update(Request $request, $property, $room)
+    // public function update(Request $request, $property, $room)
+    // {
+    //     // Validasi data yang dikirimkan oleh pengguna
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'availability' => 'boolean',
+    //         'count_visitor' => 'integer|min:0',
+    //         'size' => 'required|string',
+    //         'price' => 'required|numeric|min:0',
+    //         'foto_room' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    //         'facilities' => 'array'
+    //     ]);
+
+    //     // Temukan kamar berdasarkan ID
+    //     $room = Room::findOrFail($room);
+
+    //     // Update property_id jika diperlukan (biasanya tidak diubah, tetapi bisa disesuaikan)
+    //     $validatedData['property_id'] = $property;
+
+    //     // Handle upload foto jika ada file baru
+    //     if ($request->hasFile('foto_room')) {
+    //         // Hapus foto lama jika ada
+    //         if ($room->foto_room) {
+    //             Storage::disk('public')->delete($room->foto_room);
+    //         }
+    //         // Simpan foto baru
+    //         $validatedData['foto_room'] = $request->file('foto_room')->store('rooms', 'public');
+    //     }
+
+    //     // Update data kamar
+    //     $room->update($validatedData);
+
+    //     // Menyimpan fasilitas ke tabel pivot jika ada
+    //     if ($request->has('facilities')) {
+    //         $room->facilities()->sync($request->facilities);
+    //     } else {
+    //         // Jika tidak ada fasilitas yang dikirimkan, hapus semua fasilitas terkait
+    //         $room->facilities()->detach();
+    //     }
+
+    //     // Redirect dengan pesan sukses
+    //     return redirect()->route('owner.owner.room', $property)->with('success', 'Room updated successfully');
+    // }
+
+    public function update(Request $request, $property, Room $room)
     {
-        // Validasi data yang dikirimkan oleh pengguna
+        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'availability' => 'boolean',
-            'count_visitor' => 'integer|min:0',
             'size' => 'required|string',
             'price' => 'required|numeric|min:0',
             'foto_room' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'facilities' => 'array'
         ]);
 
-        // Temukan kamar berdasarkan ID
-        $room = Room::findOrFail($room);
+        try {
+            DB::beginTransaction(); // Mulai transaksi
 
-        // Update property_id jika diperlukan (biasanya tidak diubah, tetapi bisa disesuaikan)
-        $validatedData['property_id'] = $property;
+            // Jika ada gambar baru, hapus gambar lama dan simpan yang baru
+            if ($request->hasFile('foto_room')) {
+                // Hapus gambar lama jika ada
+                if ($room->foto_room) {
+                    Storage::disk('public')->delete($room->foto_room);
+                }
 
-        // Handle upload foto jika ada file baru
-        if ($request->hasFile('foto_room')) {
-            // Hapus foto lama jika ada
-            if ($room->foto_room) {
-                Storage::disk('public')->delete($room->foto_room);
+                // Simpan gambar baru
+                $validatedData['foto_room'] = $request->file('foto_room')->store('rooms', 'public');
+            } else {
+                // Jika tidak ada gambar baru, gunakan gambar lama
+                $validatedData['foto_room'] = $room->foto_room;
             }
-            // Simpan foto baru
-            $validatedData['foto_room'] = $request->file('foto_room')->store('rooms', 'public');
+
+            // Update room dengan data yang baru
+            $room->update($validatedData);
+
+            // Update fasilitas di tabel pivot
+            if ($request->has('facilities')) {
+                $room->facilities()->sync($request->facilities);
+            }
+
+            DB::commit();
+
+            return redirect()->route('owner.rooms')->with('success', 'Room updated successfully');
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback jika ada error
+
+            return redirect()->back()
+                ->withErrors(['error' => 'Failed to update room. Please try again.'])
+                ->withInput(); // Mengembalikan data input
         }
-
-        // Update data kamar
-        $room->update($validatedData);
-
-        // Menyimpan fasilitas ke tabel pivot jika ada
-        if ($request->has('facilities')) {
-            $room->facilities()->sync($request->facilities);
-        } else {
-            // Jika tidak ada fasilitas yang dikirimkan, hapus semua fasilitas terkait
-            $room->facilities()->detach();
-        }
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('owner.owner.room', $property)->with('success', 'Room updated successfully');
     }
+
 
 
 

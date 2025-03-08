@@ -33,8 +33,10 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 
 
     // room
-    Route::get('/owner/rooms/{property}', [RoomController::class, 'index'])->name('owner.rooms');
-    Route::get('/rooms/create/{property}', [RoomController::class, 'create'])->name('owner.room.create');
+    // Route::get('/owner/rooms/{property}', [RoomController::class, 'index'])->name('owner.rooms');
+    Route::get('/owner/rooms', [RoomController::class, 'index'])->name('owner.rooms');
+    // Route::get('/rooms/create/{property}', [RoomController::class, 'create'])->name('owner.room.create');
+    Route::get('/rooms/create', [RoomController::class, 'create'])->name('owner.room.create');
     Route::post('/rooms/store/{property}', [RoomController::class, 'store'])->name('owner.room.store');
     Route::get('/rooms/property/{property}/edit/{room}', [RoomController::class, 'edit'])->name('owner.room.edit');
     Route::put('/rooms/property/{property}/update/{room}', [RoomController::class, 'update'])->name('owner.room.update');

@@ -12,21 +12,32 @@ use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
-    public function index($property)
+    public function index()
     {
+        // Ambil user yang sedang login
         $user = Auth::user();
 
-        $rooms = Room::with('property', 'facilities')
-            ->where('property_id', $property)
-            ->get();
+        // Ambil properti yang dimiliki oleh user
+        $property = $user->properties;
 
-        // return $rooms;
+        if (!$property) {
+            return redirect()->route('owner.dashboard')->with('error', 'Anda sudah memiliki properti.');
+        }
+
+        // Ambil semua room yang dimiliki oleh properti user
+        $rooms = $property->rooms()->with('facilities')->get();
+
         return view('owner.room.index', compact('rooms', 'property'));
     }
 
 
-    public function create($property)
+
+    public function create()
     {
+        $property = Auth::user()->properties;
+
+        // return $property;
+
         $facilities = Facility::all(); // get all facilities
         return view('owner.room.create', compact('facilities', 'property'));
     }
@@ -61,7 +72,7 @@ class RoomController extends Controller
 
             DB::commit();
 
-            return redirect()->route('owner.rooms', $property)->with('success', 'Room created successfully');
+            return redirect()->route('owner.rooms')->with('success', 'Room created successfully');
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback jika ada error
 

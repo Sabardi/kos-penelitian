@@ -16,7 +16,6 @@ class KosController extends Controller
         // lakukan pengecekan apakah user sudah memiliki properti atau belom berdasra user / user id
         $userId = Auth::id();
         $userProperties = Properties::where('user_id', $userId)->exists();
-        // Ambil 10 lokasi pertama yang terurut berdasarkan nama dari A - Z
         $locations = Location::all();
 
         if ($userProperties) {

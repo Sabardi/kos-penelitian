@@ -49,7 +49,7 @@
 
                 @forelse ($rooms as $room)
                     <x-owner.room-card imageSrc="{{ Storage::url($room->foto_room) }}" title="{{ $room->name }}"
-                        location="{{ $room->property->address }}" price="Rp2.575.000 /bulan"
+                        location="{{ $room->property->address }}" price="{{ $room->price }}"
                         editUrl="{{ route('owner.room.edit', [$property, $room]) }}"
                         deleteUrl="{{ route('owner.room.delete', [$property, $room]) }}" />
 
@@ -58,7 +58,7 @@
 
                 <div
                     class="flex items-center justify-center p-4 border border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-gray-400">
-                    <a href="{{ route('owner.room.create', $property) }}"
+                    <a href="{{ route('owner.room.create') }}"
                         class="flex flex-col items-center justify-center w-full h-full">
                         <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">

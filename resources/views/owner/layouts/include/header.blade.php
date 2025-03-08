@@ -33,13 +33,17 @@
                                 <a href="{{ route('profile.edit') }}"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-user fa-fw"></i> Profile</a>
-                                <a href="{{ route('owner.edit-kos', $property) }}"
+                                <a href=""
+                                {{-- <a href="{{ route('owner.edit-kos', $property) }}" --}}
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-cog fa-fw"></i> Settings</a>
                                 <div class="border border-gray-800"></div>
-                                <a href="#"
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </li>

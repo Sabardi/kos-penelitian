@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li class="flex-1 mr-3">
-                    <a href="{{ route('owner.rooms', $property) }}"
+                    <a href="{{ route('owner.rooms') }}"
                         class="block py-1 pl-1 text-white no-underline align-middle border-b-2 {{ request()->routeIs('owner.rooms') ? 'border-blue-600' : 'border-gray-800' }} md:py-3 hover:text-white hover:border-pink-500">
                         <i class="pr-0 fas fa-tasks md:pr-3"></i><span
                             class="block pb-1 text-xs text-gray-400 md:pb-0 md:text-base md:text-gray-200 md:inline-block">Room</span>

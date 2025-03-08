@@ -45,7 +45,7 @@
             </div>
 
             <div class="flex justify-center">
-                <form action="{{ route('owner.room.store', [$property]) }}" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('owner.room.store', $property) }}" method="POST" enctype="multipart/form-data"
                     class="w-full max-w-2xl p-8 bg-white rounded-lg shadow-md">
                     @csrf
 

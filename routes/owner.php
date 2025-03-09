@@ -3,8 +3,8 @@
 use App\Http\Controllers\Front\BookingController;
 use App\Http\Controllers\Owner\DashboardOwnerController;
 use App\Http\Controllers\Owner\KosController;
+use App\Http\Controllers\Owner\ReviewController;
 use App\Http\Controllers\Owner\RoomController;
-use App\Http\Controllers\Tenant\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,13 +14,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     // })->name('owner.dashboard');
 
     Route::get('/owner/dashboard', DashboardOwnerController::class)->name('owner.dashboard');
-
-    // Route::get('/owner/rooms/booking', function () {
-    //     return view('owner.booking.index');
-    // })->name('owner.rooms.bookings');
-    Route::get('/owner/rooms/review', function () {
-        return view('owner.room.index');
-    })->name('owner.rooms.reviews');
+    Route::get('/owner/rooms/review', ReviewController::class )->name('owner.rooms.reviews');
 
     Route::get('/register/kos', [KosController::class, 'showFillKosForm'])->name('owner.fill-kos');
     Route::post('/store/kos', [KosController::class, 'store'])->name('owner.save-kos');
@@ -43,5 +37,5 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::delete('/rooms/property/{property}/delete/{room}', [RoomController::class, 'destroy'])->name('owner.room.delete');
 
     // Review
-    Route::get('/review/{property}', ReviewController::class,)->name('owner.review');
+    // Route::get('/review/{property}', ReviewController::class,)->name('owner.review');
 });

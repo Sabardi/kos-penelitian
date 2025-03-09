@@ -24,12 +24,12 @@
         @isset($header)
             {{-- make it a hero carousel --}}
             <section class="bg-white rounded-full dark:bg-gray-900">
-                <div
-                    class="bg-[url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/coast-house-view.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+                <div class="bg-gray-700 bg-center bg-no-repeat bg-cover bg-blend-multiply" style="background-image: url('{{ asset('assets/banner/coast-house-view.jpg') }}');">
                     <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </div>
+
             </section>
         @endisset
 

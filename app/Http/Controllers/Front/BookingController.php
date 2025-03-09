@@ -12,21 +12,24 @@ use Laravel\Ui\Presets\React;
 class BookingController extends Controller
 {
 
-    public function index($property)
+    public function index()
     {
 
+        // // Ambil semua room yang dimiliki oleh property user yang login
+        $bookings = Booking::whereHas('room.property', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->with('room', 'user')->get();
 
-        $bookings = Booking::whereHas('room', function ($query) use ($property) {
-            $query->where('property_id', $property);
-        })->with('room')->get();
-
+        if (!$bookings) {
+            return redirect()->route('owner.dashboard')->with('error', 'Anda sudah memiliki properti.');
+        }
         // return $bookings;
         return view('owner.booking.index', compact('bookings'));
     }
     public function booking(Request $request, $room)
     {
         // return $request->all();
-        $authUser = Auth::user()->id;
+        // $authUser = Auth::user()->id;
         $orderNumber = 'ORD-' . now()->format('Ymd') . '-' . str_pad(Booking::max('id') + 1, 5, '0', STR_PAD_LEFT);
         $validated = $request->validate([
             // 'user_id' => 'required|exists:users,id',
@@ -36,7 +39,7 @@ class BookingController extends Controller
             'check_in' => 'required|date',
         ]);
 
-        $validated['user_id'] = $authUser;
+        $validated['user_id'] = Auth::user()->id;;
         $validated['room_id'] = $room;
         $validated['order_number'] = $orderNumber;
 

@@ -33,6 +33,27 @@ class FronController extends Controller
         return view('welcome', compact('rooms', 'recommendedRooms'));
     }
 
+    public function allroom()
+    {
+        $rooms = Room::with(['reviews', 'property', 'facilities'])->where('availability', true)->get();
+        return view('allkos', compact('rooms'));
+    }
+
+    public function allrecommendedRoom()
+    {
+        $userId = Auth::id();
+
+        // Ambil pengguna yang paling mirip
+        $topUsers = $this->getUserSimilarities($userId);
+        $currentUserVector = $this->getCurrentUserVector($userId);
+
+        // Ambil rekomendasi kamar
+        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector)
+            ->loadAvg('reviews', 'rating');
+
+            return view('recommendations', compact('recommendedRooms'));
+    }
+
     public function recommendation()
     {
         $userId = Auth::id();
@@ -121,10 +142,8 @@ class FronController extends Controller
             );
         }
 
-        return view('detail', [
-            'room' => $room->load('reviews'),
-            'reviews' => $room->reviews,
-        ]);
+        $reviews = $room->reviews()->with('user')->paginate(5);
+        return view('detail', compact('room', 'reviews'));
     }
 
     public function search(Request $request)

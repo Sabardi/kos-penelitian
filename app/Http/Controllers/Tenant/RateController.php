@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Review;
 use App\Models\UserRoomInteractions;
 use Illuminate\Http\Request;
@@ -13,9 +14,9 @@ class RateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function create($room)
+    public function create(Booking $booking, $room)
     {
-        return view('tenant.review.review', compact('room'));
+        return view('tenant.review.review', compact('room', 'booking'));
     }
 
     public function storeRating(Request $request, $room)

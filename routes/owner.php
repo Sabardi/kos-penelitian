@@ -15,9 +15,9 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 
     Route::get('/owner/dashboard', DashboardOwnerController::class)->name('owner.dashboard');
 
-    Route::get('/owner/rooms/booking', function () {
-        return view('owner.booking.index');
-    })->name('owner.rooms.bookings');
+    // Route::get('/owner/rooms/booking', function () {
+    //     return view('owner.booking.index');
+    // })->name('owner.rooms.bookings');
     Route::get('/owner/rooms/review', function () {
         return view('owner.room.index');
     })->name('owner.rooms.reviews');
@@ -28,7 +28,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::put('/update/kos/{property}', [KosController::class, 'update'])->name('owner.update-kos');
 
     // booking
-    Route::get('/booking/{property}', [BookingController::class, 'index'])->name('owner.booking');
+    Route::get('owner/rooms/booking', [BookingController::class, 'index'])->name('owner.rooms.bookings');
     Route::post('/bookings/{id}/update-status', [BookingController::class, 'updateStatus'])->name('bookings.updateStatus');
 
 

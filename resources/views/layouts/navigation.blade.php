@@ -2,7 +2,8 @@
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
         <a href="/" class="flex items-center">
             {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" /> --}}
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Lombok kos</span>
+            <img src="{{ asset('assets/KosLombok.svg') }}" class="h-10 mr-3 sm:h-14" alt="Lombok kos" />
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Kos Lombok</span>
         </a>
         <div class="flex items-center lg:order-2">
             <form id="search-form" class="hidden w-full mr-3 lg:inline-block">

@@ -51,12 +51,26 @@
                         <dd class="font-medium text-green-600 dark:text-green-400 sm:text-end">{{ $booking->status }}
                         </dd>
                     </dl>
+
+                    {{-- {{$booking->reviews}} --}}
                     <dl class="items-center justify-between gap-4 sm:flex">
-                        <dt class="mb-1 font-normal text-gray-500 sm:mb-0 dark:text-gray-400">Review</dt>
-                        <dd class="font-medium text-gray-900 dark:text-white sm:text-end">
-                            <a href="{{ route('front.pesanan.rating', $booking->room->id) }}"
-                                class="text-blue-600 hover:underline">Beri Review</a>
-                        </dd>
+                        @if ($booking->reviews->isNotEmpty())
+                            <dt class="mb-1 font-normal text-gray-500 sm:mb-0 dark:text-gray-400">Ulasan/review</dt>
+                            <dd class="font-medium text-gray-900 dark:text-white sm:text-end">
+                                Terimakasih sudah memberikan ulasan
+                            </dd>
+                            <dd>
+                                @foreach ($booking->reviews->where('user_id', Auth::id()) as $review)
+                                    <p>{{ $review->comment }}</p>
+                                @endforeach
+                            </dd>
+                        @else
+                            <dt class="mb-1 font-normal text-gray-500 sm:mb-0 dark:text-gray-400">Ulasan/review</dt>
+                            <dd class="font-medium text-gray-900 dark:text-white sm:text-end">
+                                <a href="{{ route('front.pesanan.rating', [$booking->id, $booking->room->id]) }}"
+                                    class="text-blue-600 hover:underline">Beri Ulasan</a>
+                            </dd>
+                        @endif
                     </dl>
                 </div>
             </div>

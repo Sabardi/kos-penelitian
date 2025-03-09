@@ -12,10 +12,9 @@ class TenantController extends Controller
 {
     public function index()
     {
-        // $user = Auth::user()->name;
 
         $bookings = Booking::where('user_id', Auth::id())
-            ->with('room')
+            ->with('room.property', 'reviews')
             ->orderBy('created_at', 'desc')
             ->get();
 

@@ -130,7 +130,7 @@
             </div>
             <div class="mr-auto place-self-center lg:col-span-6">
                 <img class="hidden mx-auto lg:flex"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg"
+                    src="{{ asset('assets/illustration.svg') }}"
                     alt="illustration">
             </div>
         </div>

@@ -59,55 +59,47 @@
                     </thead>
                     <tbody>
 
-                        {{-- buat dara fake nya --}}
-                        @php
-                            $bookings = [
-                                (object)[
-                                    'room' => (object)['name' => 'Room 101'],
-                                    'user' => (object)['name' => 'John Doe'],
-                                    'check_in_date' => '2025-01-01',
-                                    'status' => 'checked_in',
-                                    'id' => 1
-                                ],
-                                (object)[
-                                    'room' => (object)['name' => 'Room 102'],
-                                    'user' => (object)['name' => 'Jane Smith'],
-                                    'check_in_date' => '2025-01-02',
-                                    'status' => 'pending',
-                                    'id' => 2
-                                ],
-                                (object)[
-                                    'room' => (object)['name' => 'Room 103'],
-                                    'user' => (object)['name' => 'Alice Johnson'],
-                                    'check_in_date' => '2025-01-03',
-                                    'status' => 'checked_out',
-                                    'id' => 3
-                                ],
-                            ];
-                        @endphp
-
                         @foreach ($bookings as $booking)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">{{ $booking->room->name }}</td>
-                                <td class="px-4 py-3">{{ $booking->user->name }}</td>
-                                <td class="px-4 py-3">{{ $booking->check_in_date }}</td>
+                                <td class="px-4 py-3">{{ $booking->name }}</td>
+                                <td class="px-4 py-3">{{ $booking->check_in }}</td>
                                 <td class="px-4 py-3">
-                                    @if ($booking->status == 'checked_in')
+                                    @if ($booking->status == 'rejected')
                                         <span
-                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Checked
-                                            In</span>
-                                    @elseif($booking->status == 'checked_out')
+                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">di tolak</span>
+                                    @elseif($booking->status == 'accepted')
                                         <span
-                                            class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Checked
-                                            Out</span>
+                                            class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">di terima</span>
                                     @else
                                         <span
                                             class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
                                     @endif
                                 </td>
                                 <td class="px-4 py-3">
-                                    <a href=""
-                                        class="text-blue-600 hover:text-blue-900">View</a>
+                                    @if ($booking->status == 'pending')
+                                        <div class="flex justify-between">
+                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}" method="POST"
+                                                class="inline-block">
+                                                @csrf
+                                                <input type="hidden" name="status" value="accepted">
+                                                <button type="submit"
+                                                    class="px-2 py-1 text-white bg-green-400 rounded hover:bg-green-600">Terima</button>
+                                            </form>
+
+                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}" method="POST"
+                                                class="inline-block">
+                                                @csrf
+                                                <input type="hidden" name="status" value="rejected">
+                                                <button type="submit"
+                                                    class="px-2 py-1 text-white bg-red-400 rounded hover:bg-red-600">Tolak</button>
+                                            </form>
+                                        </div>
+                                    @elseif ($booking->status == 'rejected')
+                                        <button class="px-2 py-1 text-white bg-red-400 rounded" disabled>Ditolak</button>
+                                    @elseif ($booking->status == 'accepted')
+                                        <button class="px-2 py-1 text-white bg-green-400 rounded" disabled>Diterima</button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

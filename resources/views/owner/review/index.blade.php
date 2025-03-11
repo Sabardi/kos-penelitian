@@ -344,11 +344,12 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                        @empty
+                            @empty
 
-                        <div class="flex flex-col items-center justify-center p-5 text-sm font-medium text-center text-gray-900 dark:text-white">
-                            No reviews found.
-                            </div>
+                                <div
+                                    class="flex flex-col items-center justify-center p-5 text-sm font-medium text-center text-gray-900 dark:text-white">
+                                    No reviews found.
+                                </div>
                             @endforelse
                         </div>
                     </div>

@@ -48,8 +48,9 @@ class Properties extends Model
         return $this->belongsToMany(Location::class, 'public_locations', 'property_id', 'location_id')->withPivot('distance');
     }
 
-    // public function publicLocations()
-    // {
-    //     return $this->hasMany(PublicLocation::class);
-    // }
+    public function publicLocations()
+    {
+        return $this->hasMany(PublicLocation::class);
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Facility;
 use App\Models\Review;
 use App\Models\Room;
 use App\Models\UserRoomInteractions;
@@ -30,7 +31,10 @@ class FronController extends Controller
             ->where('availability', true)
             ->get();
 
-        return view('welcome', compact('rooms', 'recommendedRooms'));
+
+            $facilities = Facility::all();
+            
+        return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 
     public function allroom()

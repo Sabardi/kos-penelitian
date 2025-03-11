@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\FronController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

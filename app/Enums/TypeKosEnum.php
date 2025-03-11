@@ -19,7 +19,7 @@ final class TypeKosEnum extends Enum
     const putra = "Putra";
 
     #[Description('Putri')]
-    const putri = "utri";
+    const putri = "putri";
 
     #[Description('Campur')]
     const campur = "Campur";

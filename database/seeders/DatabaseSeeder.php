@@ -15,19 +15,25 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
+        User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
             'name' => 'admin',
-            'email' => 'admin@example.com',
             'role' => 'admin',
-        ]);
+            ]
+        );
 
         $this->call([
+            UserOwnerSeeder::class,
+            UserTenantSeeder::class,
+            PropertySeeder::class,
             LocationSeeder::class,
             FacilitySeeder::class,
         //     PropertySeeder::class,
         //     PublicLocationSeeder::class,
         //     UserSeeder::class,
         ]);
+
+
     }
 }

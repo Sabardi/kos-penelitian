@@ -18,7 +18,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 
     Route::get('/register/kos', [KosController::class, 'showFillKosForm'])->name('owner.fill-kos');
     Route::post('/store/kos', [KosController::class, 'store'])->name('owner.save-kos');
-    Route::get('/edit/kos/{property}', [KosController::class, 'showEditKosForm'])->name('owner.edit-kos');
+    Route::get('/edit/kos', [KosController::class, 'showEditKosForm'])->name('owner.edit-kos');
     Route::put('/update/kos/{property}', [KosController::class, 'update'])->name('owner.update-kos');
 
     // booking

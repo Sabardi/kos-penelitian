@@ -54,7 +54,7 @@
 
                 <select id="price-form" name="price"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="" selected disabled>Harga</option>
+                    <option selected disabled>Harga</option>
                     <option value="100k-500k">100 rb - 500 rb</option>
                     <option value="500k-1m">500 rb - 1 jt</option>
                     <option value="1m-2m">1 jt - 2 jt</option>

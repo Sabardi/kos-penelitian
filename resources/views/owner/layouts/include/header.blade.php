@@ -33,8 +33,7 @@
                                 <a href="{{ route('profile.edit') }}"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-user fa-fw"></i> Profile</a>
-                                <a href=""
-                                {{-- <a href="{{ route('owner.edit-kos', $property) }}" --}}
+                                <a href="{{ route('owner.edit-kos') }}"
                                     class="block p-2 text-sm text-white no-underline hover:bg-gray-800 hover:no-underline"><i
                                         class="fa fa-cog fa-fw"></i> Settings</a>
                                 <div class="border border-gray-800"></div>

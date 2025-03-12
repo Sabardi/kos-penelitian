@@ -33,7 +33,7 @@ class FronController extends Controller
 
 
             $facilities = Facility::all();
-            
+
         return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 
@@ -147,7 +147,10 @@ class FronController extends Controller
         }
 
         $reviews = $room->reviews()->with('user')->paginate(5);
-        return view('detail', compact('room', 'reviews'));
+        $title = $room->slug;
+
+        // return $title;
+        return view('detail', compact('room', 'reviews', 'title' ));
     }
 
     public function search(Request $request)

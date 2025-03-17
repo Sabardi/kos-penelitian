@@ -34,6 +34,8 @@
         </div>
     </main>
     @include('owner.layouts.include.scripts')
+
+    @include('sweetalert::alert')
 </body>
 
 </html>

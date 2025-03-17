@@ -7,7 +7,7 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                 <div class="max-w-md mx-auto shrink-0 lg:max-w-lg">
                     <img class="w-full dark:hidden" src="{{ Storage::url($room->foto_room) }}" alt="" />
-                    <img class="hidden w-full dark:block" src="{{ Storage::url($room->foto_room) }}" alt="" />
+                    <img class="hidden w-full dark:block"  src="{{ Storage::url($room->foto_room) }}" alt="" />
                 </div>
 
                 <div class="mt-6 sm:mt-8 lg:mt-0">

@@ -11,8 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web([
+            \RealRashid\SweetAlert\ToSweetAlert::class,
+           ]);
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

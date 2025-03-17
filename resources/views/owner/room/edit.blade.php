@@ -129,20 +129,12 @@
                                 <div class="flex items-center mb-2">
                                     <input type="checkbox" id="facility_{{ $facility->id }}" name="facilities[]"
                                         value="{{ $facility->id }}"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                        @if(in_array($facility->id, $room->facilities->pluck('id')->toArray())) checked @endif>
                                     <label for="facility_{{ $facility->id }}"
                                         class="ml-2 text-sm text-gray-900">{{ $facility->name }}</label>
                                 </div>
                             @endforeach
-
-                            {{-- @foreach ($facilities as $facility)
-                                <div class="flex items-center mb-2">
-                                    <input type="checkbox" name="facilities[]" value="{{ $facility->id }}"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                        @if (in_array($facility->id, $room->facilities->pluck('id')->toArray())) checked @endif />
-                                    {{ $facility->name }}
-                                </div>
-                            @endforeach --}}
                         </div>
                         @error('facilities')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>

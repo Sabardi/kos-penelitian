@@ -3,6 +3,7 @@
 use App\Http\Controllers\Front\FronController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -16,6 +17,10 @@ Route::get('/rekomendasi-kamar-kos', [FronController::class, 'allrecommendedRoom
 
 Route::get('/room/{room}/{slug}', [FronController::class, 'show'])->name('front.detail');
 
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage link has been created successfully!';
+});
 
 
 Route::get('/about', function () {

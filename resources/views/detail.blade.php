@@ -98,11 +98,12 @@
         </div>
     </section>
 
+    @if ($reviews->count() > 0)
     <section class="py-8 antialiased bg-white dark:bg-gray-900 md:py-16">
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
             <div class="max-w-5xl mx-auto">
                 <div class="gap-4 sm:flex sm:items-center sm:justify-between">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">My reviews</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">semua review</h2>
                     <div class="mt-6 sm:mt-0">
                         <label for="order-type"
                             class="block mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Select review
@@ -234,6 +235,7 @@
             </div>
         </div>
     </section>
+    @endif
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </x-app-layout>

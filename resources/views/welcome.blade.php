@@ -22,7 +22,7 @@
                 @endguest
 
             </div>
-            <form action="#"
+            <form action="{{ route('search') }}" method="GET"
                 class="grid w-full p-4 mt-8 bg-white rounded gap-y-4 lg:gap-x-4 lg:grid-cols-9 lg:mt-12 dark:bg-gray-800">
                 <div class="lg:col-span-3">
                     <label for="location-form" class="sr-only">Location</label>
@@ -37,49 +37,47 @@
                         </div>
                         <input type="text" id="location-form"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search destinations">
+                            name="keyword" placeholder="Cari lokasi, nama kos, universitas">
                     </div>
                 </div>
-                <div date-rangepicker class="grid grid-cols-2 gap-x-4 lg:col-span-3">
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <input name="start" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Check in">
-                    </div>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <input name="end" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Check out">
-                    </div>
-                </div>
-                <div class="lg:col-span-1">
-                    <label for="guests" class="sr-only">Select number of guests</label>
-                    <select id="guests"
+
+                <div class="lg:col-span-2">
+                    <label for="facilities-form" class="sr-only">Facilities</label>
+                    <select id="facilities-form" name="facilities"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option>Add guests</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5+</option>
+                        <option selected> Facilitas</option>
+                        @foreach ($facilities as $facility)
+                            <option value="{{ $facility->name }}">{{ $facility->name }}</option>
+                        @endforeach
                     </select>
                 </div>
+
+                <select id="price-form" name="price"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option selected disabled>Harga</option>
+                    <option value="100k-500k">100 rb - 500 rb</option>
+                    <option value="500k-1m">500 rb - 1 jt</option>
+                    <option value="1m-2m">1 jt - 2 jt</option>
+                    <option value="2m+">Di atas 2 jt</option>
+                </select>
+
+
+
+                <div class="lg:col-span-1">
+                    <label for="room-type-form" class="sr-only">Type</label>
+                    <select id="room-type-form" name="type"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option selected>Type</option>
+                        @foreach (\App\Enums\TypeKosEnum::asSelectArray() as $key => $enum)
+                            <option value="{{ $key }}"
+                                {{ old('type', @$item->category) == $key ? 'selected' : '' }}>
+                                {{ $enum }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
                 <button type="submit"
                     class="lg:col-span-2 justify-center md:w-auto text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center">
                     <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"

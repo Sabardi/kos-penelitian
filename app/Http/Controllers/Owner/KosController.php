@@ -72,8 +72,18 @@ class KosController extends Controller
         }
     }
 
-    public function showEditKosForm(Properties $property)
+    public function showEditKosForm()
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Ambil properti yang dimiliki oleh user
+        $property = $user->properties;
+
+        if (!$property) {
+            return redirect()->route('owner.dashboard')->with('error', 'Anda sudah memiliki properti.');
+        }
+
         $locations = Location::all();
 
         return view('owner.property.edit', compact('property', 'locations'));

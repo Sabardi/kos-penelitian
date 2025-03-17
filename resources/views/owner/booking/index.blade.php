@@ -58,8 +58,7 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach ($bookings as $booking)
+                        @forelse ($bookings as $booking)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">{{ $booking->room->name }}</td>
                                 <td class="px-4 py-3">{{ $booking->name }}</td>
@@ -67,10 +66,12 @@
                                 <td class="px-4 py-3">
                                     @if ($booking->status == 'rejected')
                                         <span
-                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">di tolak</span>
+                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">di
+                                            tolak</span>
                                     @elseif($booking->status == 'accepted')
                                         <span
-                                            class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">di terima</span>
+                                            class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">di
+                                            terima</span>
                                     @else
                                         <span
                                             class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Pending</span>
@@ -79,16 +80,16 @@
                                 <td class="px-4 py-3">
                                     @if ($booking->status == 'pending')
                                         <div class="flex justify-between">
-                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}" method="POST"
-                                                class="inline-block">
+                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}"
+                                                method="POST" class="inline-block">
                                                 @csrf
                                                 <input type="hidden" name="status" value="accepted">
                                                 <button type="submit"
                                                     class="px-2 py-1 text-white bg-green-400 rounded hover:bg-green-600">Terima</button>
                                             </form>
 
-                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}" method="POST"
-                                                class="inline-block">
+                                            <form action="{{ route('bookings.updateStatus', $booking->id) }}"
+                                                method="POST" class="inline-block">
                                                 @csrf
                                                 <input type="hidden" name="status" value="rejected">
                                                 <button type="submit"
@@ -96,13 +97,17 @@
                                             </form>
                                         </div>
                                     @elseif ($booking->status == 'rejected')
-                                        <button class="px-2 py-1 text-white bg-red-400 rounded" disabled>Ditolak</button>
+                                        <button class="px-2 py-1 text-white bg-red-400 rounded"
+                                            disabled>Ditolak</button>
                                     @elseif ($booking->status == 'accepted')
-                                        <button class="px-2 py-1 text-white bg-green-400 rounded" disabled>Diterima</button>
+                                        <button class="px-2 py-1 text-white bg-green-400 rounded"
+                                            disabled>Diterima</button>
                                     @endif
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <div class="py-4 text-center text-gray-500">Tidak ada booking</div>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

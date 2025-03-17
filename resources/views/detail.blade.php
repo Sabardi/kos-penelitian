@@ -1,10 +1,13 @@
 <x-app-layout>
+    <x-slot name="title">
+        {{ $title }}
+    </x-slot>
     <section class="py-8 antialiased bg-white md:py-16 dark:bg-gray-900">
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
             <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                 <div class="max-w-md mx-auto shrink-0 lg:max-w-lg">
                     <img class="w-full dark:hidden" src="{{ Storage::url($room->foto_room) }}" alt="" />
-                    <img class="hidden w-full dark:block" src="{{ Storage::url($room->foto_room) }}" alt="" />
+                    <img class="hidden w-full dark:block"  src="{{ Storage::url($room->foto_room) }}" alt="" />
                 </div>
 
                 <div class="mt-6 sm:mt-8 lg:mt-0">
@@ -95,11 +98,12 @@
         </div>
     </section>
 
+    @if ($reviews->count() > 0)
     <section class="py-8 antialiased bg-white dark:bg-gray-900 md:py-16">
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
             <div class="max-w-5xl mx-auto">
                 <div class="gap-4 sm:flex sm:items-center sm:justify-between">
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">My reviews</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">semua review</h2>
                     <div class="mt-6 sm:mt-0">
                         <label for="order-type"
                             class="block mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Select review
@@ -116,9 +120,9 @@
                     </div>
                 </div>
 
-                <div class="flow-root mt-6 sm:mt-8">
-                    <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @foreach ($reviews as $review)
+                @foreach ($reviews as $review)
+                    <div class="flow-root mt-6 sm:mt-8">
+                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
                             <div class="grid gap-4 pb-4 md:grid-cols-12 md:gap-6 md:pb-6">
                                 <dl class="order-3 md:col-span-3 md:order-1">
                                     <dt class="sr-only">Product:</dt>
@@ -129,7 +133,26 @@
 
                                 <dl class="order-4 md:col-span-6 md:order-2">
                                     <dt class="sr-only">Comment:</dt>
-                                    <dd class="text-gray-500 dark:text-gray-400">{{ $review->comment }}</dd>
+                                    <dd class="text-gray-500 dark:text-gray-400">
+                                        <div x-data="{ expanded: false }">
+                                            <p>
+                                                <!-- Jika expanded == true, tampilkan seluruh komentar -->
+                                                <span x-show="expanded">{{ $review->comment }}</span>
+
+                                                <!-- Jika expanded == false, tampilkan hanya 10 kata pertama -->
+                                                <span x-show="!expanded">
+                                                    {{ Str::words($review->comment, 10) }}...
+                                                </span>
+                                            </p>
+
+                                            <!-- Tombol untuk menampilkan/menyembunyikan komentar -->
+                                            <a href="#" @click.prevent="expanded = !expanded"
+                                                class="text-blue-500 hover:underline">
+                                                <span x-show="!expanded">Load more</span>
+                                                <span x-show="expanded">Show less</span>
+                                            </a>
+                                        </div>
+                                    </dd>
                                 </dl>
 
                                 <div
@@ -137,64 +160,82 @@
                                     <dl>
                                         <dt class="sr-only">Stars:</dt>
                                         <dd class="flex items-center space-x-1">
-                                            <svg class="w-5 h-5 text-yellow-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
-                                                </path>
-                                            </svg>
-                                            <svg class="w-5 h-5 text-yellow-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
-                                                </path>
-                                            </svg>
-                                            <svg class="w-5 h-5 text-yellow-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
-                                                </path>
-                                            </svg>
-                                            <svg class="w-5 h-5 text-yellow-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
-                                                </path>
-                                            </svg>
-                                            <svg class="w-5 h-5 text-yellow-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path
-                                                    d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
-                                                </path>
-                                            </svg>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <svg class="w-5 h-5 {{ $i <= $review->rating ? 'text-yellow-400' : 'text-gray-300' }}"
+                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="currentColor" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M13.8 4.2a2 2 0 0 0-3.6 0L8.4 8.4l-4.6.3a2 2 0 0 0-1.1 3.5l3.5 3-1 4.4c-.5 1.7 1.4 3 2.9 2.1l3.9-2.3 3.9 2.3c1.5 1 3.4-.4 3-2.1l-1-4.4 3.4-3a2 2 0 0 0-1.1-3.5l-4.6-.3-1.8-4.2Z">
+                                                    </path>
+                                                </svg>
+                                            @endfor
                                         </dd>
                                     </dl>
-                                </div>
-                            </div>
-                        @endforeach
 
+                                    <button id="actionsMenuDropdown1" data-dropdown-toggle="dropdownOrder1"
+                                        type="button"
+                                        class="inline-flex items-center justify-center text-gray-500 rounded-lg h-7 w-7 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <span class="sr-only"> Actions </span>
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-width="4"
+                                                d="M6 12h.01m6 0h.01m5.99 0h.01"></path>
+                                        </svg>
+                                    </button>
+                                    <div id="dropdownOrder1"
+                                        class="z-10 hidden w-40 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+                                        data-popper-placement="bottom">
+                                        <ul class="p-2 text-sm font-medium text-left text-gray-500 dark:text-gray-400"
+                                            aria-labelledby="actionsMenuDropdown1">
+                                            <li>
+                                                <button type="button" data-modal-target="editReviewModal"
+                                                    data-modal-toggle="editReviewModal"
+                                                    class="inline-flex items-center w-full px-3 py-2 text-sm text-gray-500 rounded-md group hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                    <svg class="me-1.5 h-4 w-4 text-gray-400 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                                                    </svg>
+                                                    <span>Edit review</span>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" data-modal-target="deleteReviewModal"
+                                                    data-modal-toggle="deleteReviewModal"
+                                                    class="inline-flex items-center w-full px-3 py-2 text-sm text-red-600 rounded-md group hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-500">
+                                                    <svg class="me-1.5 h-4 w-4" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z">
+                                                        </path>
+                                                    </svg>
+                                                    Delete review
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                    <hr class="">
+                @endforeach
 
                 <!-- Pagination -->
                 <div class="mt-6 sm:mt-8">
                     {{ $reviews->withQueryString()->links() }}
-                    <div class="flex justify-center mt-4">
-                        <a href="#"
-                            class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-                            target="_blank">
-                            Lihat semua
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
+    @endif
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </x-app-layout>

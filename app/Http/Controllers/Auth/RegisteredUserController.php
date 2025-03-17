@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisteredUserController extends Controller
 {
@@ -63,8 +64,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // Auth::login($user);
-
-        return redirect(route('home', absolute: false));
+        return redirect(route('home', absolute: false))->with('success', 'successfully registered silahkan melakan login');
     }
 
     public function storeowner(Request $request): RedirectResponse
@@ -89,6 +89,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(route('home', absolute: false));
+        return redirect(route('home', absolute: false))->with('success', ' successfully registered silahkan melakan login');
     }
 }

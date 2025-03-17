@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
 class Room extends Model
 {
     use HasFactory;
@@ -36,7 +37,28 @@ class Room extends Model
     }
 
 
+    public function scopeFilter($query, $params)
+    {
 
+
+        // Filter berdasarkan rentang harga
+        $query->when(!empty($params['price']), function ($query) use ($params) {
+            switch ($params['price']) {
+                case '100k-500k':
+                    $query->whereBetween('price', [100000, 500000]);
+                    break;
+                case '500k-1m':
+                    $query->whereBetween('price', [500000, 1000000]);
+                    break;
+                case '1m-2m':
+                    $query->whereBetween('price', [1000000, 2000000]);
+                    break;
+                case '2m+':
+                    $query->where('price', '>=', 2000000);
+                    break;
+            }
+        });
+    }
 
     public function property()
     {
@@ -66,6 +88,7 @@ class Room extends Model
     {
         return $this->hasMany(UserRoomInteractions::class);
     }
+
 
 
     // Accessor untuk mendapatkan rata-rata rating

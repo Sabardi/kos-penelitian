@@ -130,4 +130,15 @@ class KosController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+    public function showAddLocationForm(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|unique:locations,name,max:255',
+        ]);
+        Location::create($request->only('name'));
+
+        return redirect()->back();
+    }
 }

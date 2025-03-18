@@ -116,8 +116,17 @@
                             required />
                     </div>
 
+                        <!-- Tempat menampilkan lokasi yang dipilih -->
                     <h2>Pilih lokasi yang terdekat dengan kos-kosan Anda</h2>
-                    <!-- Tempat menampilkan lokasi yang dipilih -->
+                    <label for="">jika tidak ada silahkan klik <a href=""></a> </label>
+                    <!-- Modal toggle -->
+                    <div class="flex m-5">
+                        <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                            class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            type="button">
+                            Tambahkan
+                        </button>
+                    </div>
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Pilih Lokasi & Jarak</label>
                         <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
@@ -166,4 +175,5 @@
             </div>
         </div>
     </section>
+    @include('owner.property.__form')
 </x-dashboard-layout>

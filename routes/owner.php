@@ -13,6 +13,10 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     // Route::get('/owner/dashboard',DashboardOwnerController::class)
     // })->name('owner.dashboard');
 
+    // add location
+    Route::post('/owner/add-location', [KosController::class, 'showAddLocationForm'])->name('owner.add-location');
+    Route::post('/owner/add-facility', [RoomController::class, 'showAddFacilityForm'])->name('owner.add-facility');
+
     Route::get('/owner/dashboard', DashboardOwnerController::class)->name('owner.dashboard');
     Route::get('/owner/rooms/review', ReviewController::class )->name('owner.rooms.reviews');
 

@@ -241,4 +241,13 @@ class RoomController extends Controller
 
         return redirect()->back()->with('error', 'Kamar tidak tersedia.');
     }
+
+    public function showAddFacilityForm(Request $request){
+        $request->validate([
+            'name' => 'required|string|unique:facilities,name,max:255',
+        ]);
+        Facility::create($request->only('name'));
+        // return "ok";
+        return redirect()->back();
+    }
 }

@@ -21,7 +21,7 @@
             <p class="text-sm text-gray-500 dark:text-gray-400">{{ $distance }}</p>
         </div>
         <div class="flex justify-center mt-4 space-x-2">
-            <a href="{{ $showUrl }}"
+            <a href="{{ $showUrl }}" target="_blank"
                 class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700">
                 <i class="mr-2 fas fa-eye"></i>Show
             </a>
@@ -31,7 +31,7 @@
             </a>
             <form action="{{ $deleteUrl }}" method="POST" class="inline">
                 @csrf
-                @method("delete")
+                @method('delete')
                 <button type="submit"
                     class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
                     onclick="return confirm('Are you sure?')">

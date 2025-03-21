@@ -37,7 +37,7 @@
                         </div>
                         <input type="text" id="location-form"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            name="keyword" placeholder="Cari lokasi, nama kos, universitas">
+                            name="keyword" placeholder="Cari lokasi, nama kos, universitas" required>
                     </div>
                 </div>
 
@@ -51,19 +51,7 @@
                         @endforeach
                     </select>
                 </div>
-
-                <select id="price-form" name="price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option selected disabled>Harga</option>
-                    <option value="100k-500k">100 rb - 500 rb</option>
-                    <option value="500k-1m">500 rb - 1 jt</option>
-                    <option value="1m-2m">1 jt - 2 jt</option>
-                    <option value="2m+">Di atas 2 jt</option>
-                </select>
-
-
-
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-2">
                     <label for="room-type-form" class="sr-only">Type</label>
                     <select id="room-type-form" name="type"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">

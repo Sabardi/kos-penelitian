@@ -1,52 +1,77 @@
 <x-app-layout>
-    <div class="max-w-4xl mx-auto p-6">
+    <section class="py-8 antialiased bg-white md:py-16 dark:bg-gray-900">
+        <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
 
-        <!-- Breadcrumb Navigation -->
-        <nav class="mb-6 text-sm">
-            <ol class="flex items-center space-x-2 text-gray-600">
-                <li><a href="/" class="hover:text-blue-500">Home</a></li>
-                <li>/</li>
-                <li><a href="/results" class="hover:text-blue-500">Results</a></li>
-                <li>/</li>
-                <li class="text-blue-500 font-medium">Details</li>
-            </ol>
-        </nav>
-
-        <!-- Detail Sections -->
-        <div class="bg-white shadow-md rounded-lg p-6 space-y-6">
-
-            <!-- Lokasi Section -->
-            <section>
-                <h2 class="text-2xl font-semibold text-gray-800 mb-2">📍 Lokasi</h2>
-                <p class="text-gray-600">Jalan Sudirman No. 45, Jakarta, Indonesia</p>
-                <div class="mt-4">
-                    <iframe class="w-full h-56 rounded-lg shadow"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126915.34840594278!2d106.8271536!3d-6.2087634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMzEuMiJTIDEwNsKwNDknNTguNSJF!5e0!3m2!1sid!2sid!4v1610209605679!5m2!1sid!2sid"
-                        allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </section>
-
-            <!-- Facility Section -->
-            <section>
-                <h2 class="text-2xl font-semibold text-gray-800 mb-2">🏢 Fasilitas</h2>
-                <ul class="text-gray-600 space-y-2">
-                    <li>✅ Wi-Fi Gratis</li>
-                    <li>✅ Area Parkir Luas</li>
-                    <li>✅ Kolam Renang</li>
-                    <li>✅ Ruang Meeting</li>
+            <!-- Tab navigation -->
+            <div class="overflow-x-auto border-b border-gray-300">
+                <ul class="flex md:flex-wrap whitespace-nowrap">
+                    <li class="flex-1 text-center">
+                        <a href="#lokasi"
+                            class="block py-3 text-base font-medium text-gray-600 border-b-2 border-transparent tab-link md:text-lg">
+                            Lokasi
+                        </a>
+                    </li>
+                    <li class="flex-1 text-center">
+                        <a href="#fasilitas"
+                            class="block py-3 text-base font-medium text-gray-600 border-b-2 border-transparent tab-link md:text-lg">
+                            Fasilitas
+                        </a>
+                    </li>
+                    <li class="flex-1 text-center">
+                        <a href="#tipe"
+                            class="block py-3 text-base font-medium text-gray-600 border-b-2 border-transparent tab-link md:text-lg">
+                            Tipe
+                        </a>
+                    </li>
                 </ul>
-            </section>
+            </div>
 
-            <!-- Harga Section -->
-            <section>
-                <h2 class="text-2xl font-semibold text-gray-800 mb-2">💰 Harga</h2>
-                <p class="text-gray-600">Harga mulai dari <span class="text-green-500 font-semibold text-lg">Rp 500.000</span> per malam.</p>
-                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow">
-                    Pesan Sekarang
-                </button>
-            </section>
-
+            <!-- Tab content -->
+            <div class="py-6">
+                <div id="lokasi" class="tab-content">
+                    <h2 class="text-2xl font-bold text-gray-800">My Account</h2>
+                    <p class="mt-4 text-gray-600">Kelola informasi akun Anda, perbarui profil, dan ubah kata sandi.</p>
+                </div>
+                <div id="fasilitas" class="hidden tab-content">
+                    <h2 class="text-2xl font-bold text-gray-800">Company</h2>
+                    <p class="mt-4 text-gray-600">Kelola informasi perusahaan, logo, dan detail bisnis Anda.</p>
+                </div>
+                <div id="tipe" class="hidden tab-content">
+                    <h2 class="text-2xl font-bold text-gray-800">Team Members</h2>
+                    <p class="mt-4 text-gray-600">Kelola anggota tim, tambahkan atau hapus pengguna sesuai kebutuhan.
+                    </p>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabs = document.querySelectorAll(".tab-link");
+            const contents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function(event) {
+                    event.preventDefault();
+
+                    // Hapus style aktif dari semua tab
+                    tabs.forEach(t => t.classList.remove("text-blue-500", "border-blue-500"));
+                    contents.forEach(c => c.classList.add("hidden"));
+
+                    // Tambahkan style aktif ke tab yang diklik
+                    this.classList.add("text-blue-500", "border-blue-500");
+
+                    // Tampilkan konten yang sesuai
+                    const targetId = this.getAttribute("href").substring(1);
+                    document.getElementById(targetId).classList.remove("hidden");
+                });
+            });
+
+            // Set tab pertama sebagai default aktif
+            tabs[0].classList.add("text-blue-500", "border-blue-500");
+        });
+    </script>
+    <section class="bg-white dark:bg-gray-900">
+
+    </section>
 </x-app-layout>

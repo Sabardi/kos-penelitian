@@ -16,6 +16,7 @@ class RateController extends Controller
      */
     public function create(Booking $booking, $room)
     {
+        // return $booking;
         return view('tenant.review.review', compact('room', 'booking'));
     }
 

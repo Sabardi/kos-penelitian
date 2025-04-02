@@ -1,4 +1,5 @@
 <x-app-layout>
+    @if ($booking->status == 'accepted')
     <section class="py-8 antialiased bg-white dark:bg-gray-900 md:py-16">
         <div class="max-w-2xl px-4 mx-auto sm:px-6 lg:px-8">
             <div class="p-6 bg-white shadow dark:bg-gray-800 sm:rounded-lg">
@@ -29,4 +30,11 @@
             </div>
         </div>
     </section>
+    @else
+
+    <script>
+        window.location.href = document.referrer || '/';
+    </script>
+
+    @endif
 </x-app-layout>

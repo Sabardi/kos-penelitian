@@ -64,7 +64,7 @@
                                     <p>{{ $review->comment }}</p>
                                 @endforeach
                             </dd>
-                        @else
+                        @elseif ($booking->status == 'accepted')
                             <dt class="mb-1 font-normal text-gray-500 sm:mb-0 dark:text-gray-400">Ulasan/review</dt>
                             <dd class="font-medium text-gray-900 dark:text-white sm:text-end">
                                 <a href="{{ route('front.pesanan.rating', [$booking->id, $booking->room->slug]) }}"

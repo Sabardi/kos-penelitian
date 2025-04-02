@@ -79,7 +79,7 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     @if ($booking->status == 'pending')
-                                        <div class="flex justify-between">
+                                        <div class="flex">
                                             <form action="{{ route('bookings.updateStatus', $booking->id) }}"
                                                 method="POST" class="inline-block">
                                                 @csrf

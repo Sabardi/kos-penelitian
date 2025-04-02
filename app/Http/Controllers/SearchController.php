@@ -10,75 +10,82 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $params = request()->query();
-
-    //     $facilities = Facility::where('name', 'like', '%' . $params['facilities'] . '%')->with('rooms')->get();
-    //     $locations = Location::where('name', 'like', '%' . $params['keyword'] . '%')->with('properties.rooms')->get();
-    //     $locations = Room::filter($params)->get();
-
-    //     return $locations;
-    //     $rooms = Room::with('facilities')->filter($params)->get();
-    //     $locations = Room::with('facilities')->filter($params)->get();
-
-    //     return $rooms;
-    //     $facilities = Facility::with('rooms')->filter($params)->get();
-
-    //     return view('results', compact('properties'));
-    // }
-
     public function index(Request $request)
     {
-        $query = Room::query();
+    //     $params = request()->query();
 
-        // Filter berdasarkan lokasi atau nama properti
-        if ($request->has('keyword')) {
-            $keyword = $request->input('keyword');
-            $query->whereHas('property', function ($q) use ($keyword) {
-                $q->where('name', 'like', "%$keyword%")
-                  ->orWhere('address', 'like', "%$keyword%")
-                  ->orWhere('regency', 'like', "%$keyword%");
-            });
-        }
 
-        // Filter berdasarkan fasilitas
-        if ($request->has('facilities') && $request->facilities != 'Facilitas') {
-            $facility = $request->input('facilities');
-            $query->whereHas('facilities', function ($q) use ($facility) {
-                $q->where('name', $facility);
-            });
-        }
+    //     $locations = Location::with(['properties' => function ($query) use ($params) {
+    //         $query->filter($params);
+    //     }])->filter($params)->get();
 
-        // Filter berdasarkan harga
-        if ($request->has('price')) {
-            switch ($request->price) {
-                case '100 rb - 500 rb':
-                    $query->whereBetween('price', [100000, 500000]);
-                    break;
-                case '500 rb - 1 jt':
-                    $query->whereBetween('price', [500000, 1000000]);
-                    break;
-                case '1 jt - 2 jt':
-                    $query->whereBetween('price', [1000000, 2000000]);
-                    break;
-                case 'Di atas 2 jt':
-                    $query->where('price', '>', 2000000);
-                    break;
-            }
-        }
+    //     // return $locations;
+    //     $facilities = Facility::with(['rooms' => function ($query) use ($params) {
+    //         $query->filter($params);
+    //     }])->filter($params)->get();
 
-        // Filter berdasarkan tipe kos
-        if ($request->has('type') && $request->type != 'Type') {
-            $query->whereHas('property', function ($q) use ($request) {
-                $q->where('type', $request->type);
-            });
-        }
+    //     $types = Properties::with(['rooms' => function ($query) use ($params) {
+    //         $query->filter($params);
+    //     }])->filter($params)->get();
 
-        $rooms = $query->with('property')->get();
 
-        return $rooms;
-        return view('search.results', compact('rooms'));
+
+    //    // $rooms = Room::with(['reviews', 'property', 'facilities'])
+    //     //     ->withAvg('reviews', 'rating')
+    //     //     ->where('availability', true)
+    //     //     ->get();
+    //     // return $types;
+    //     return view('results', compact('locations', 'facilities', 'types'));
+    //     // return view('results', compact('rooms', 'faciltas', 'types', 'locations'));
+
+
+      // Query untuk lokasi dengan filter dari request
+      $locationsQuery = Location::query();
+
+      if ($request->has('keyword')) {
+          $locationsQuery->where('name', 'LIKE', "%{$request->keyword}%");
+      }
+
+      $locations = $locationsQuery->with(['properties' => function ($query) use ($request) {
+          // Filter pada properties jika diperlukan
+          if ($request->has('keyword')) {
+              $query->where('name', 'LIKE', "%{$request->keyword}%");
+          }
+      }])->get();
+
+      // Query untuk fasilitas dengan filter dari request
+      $facilitiesQuery = Facility::query();
+
+      if ($request->has('facilities')) {
+          $facilitiesQuery->where('name', 'LIKE', "%{$request->facilities}%");
+      }
+
+      if ($request->has('keyword')) {
+          $facilitiesQuery->orWhere('name', 'LIKE', "%{$request->keyword}%");
+      }
+
+      $facilities = $facilitiesQuery->with(['rooms' => function ($query) use ($request) {
+          // Filter pada rooms jika diperlukan
+          if ($request->has('keyword')) {
+              $query->where('name', 'LIKE', "%{$request->keyword}%");
+          }
+      }])->get();
+
+      // Query untuk properties dengan filter dari request
+      $propertiesQuery = Properties::query();
+
+      if ($request->has('type')) {
+          $propertiesQuery->where('type', 'LIKE', "%{$request->type}%");
+      }
+
+      $types = $propertiesQuery->with(['rooms' => function ($query) use ($request) {
+          // Filter pada rooms jika diperlukan
+          if ($request->has('keyword')) {
+              $query->where('name', 'LIKE', "%{$request->keyword}%");
+          }
+      }])->get();
+
+      // Mengirim data ke view
+      return view('results', compact('locations', 'facilities', 'types'));
     }
-
 }

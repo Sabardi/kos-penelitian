@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'KosLombok') }} - @isset($title) {{ $title }}@endisset</title>
+    <title>{{ config('app.name', 'KosLombok') }} - @isset($title)
+            {{ $title }}
+        @endisset
+    </title>
 
-</title>
+    </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,6 +20,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+@stack('scripts')
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
@@ -26,7 +30,8 @@
         @isset($header)
             {{-- make it a hero carousel --}}
             <section class="bg-white rounded-full dark:bg-gray-900">
-                <div class="bg-gray-700 bg-center bg-no-repeat bg-cover bg-blend-multiply" style="background-image: url('{{ asset('assets/banner/coast-house-view.jpg') }}');">
+                <div class="bg-gray-700 bg-center bg-no-repeat bg-cover bg-blend-multiply"
+                    style="background-image: url('{{ asset('assets/banner/coast-house-view.jpg') }}');">
                     <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -53,6 +58,8 @@
     </div>
 
     @include('sweetalert::alert')
+
+    @stack('scripts')
 </body>
 
 </html>

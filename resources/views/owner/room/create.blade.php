@@ -116,35 +116,16 @@
                         </div>
                     </div>
 
-                    {{-- <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Kamar</label>
-                        @error('foto_room.*')
-                        <p class="text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file"
-                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
-                                <div id="preview-container" class="flex flex-wrap gap-2"></div>
-                                <div id="upload-icon" class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                    </svg>
-                                    <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
-                                    <p class="text-xs text-gray-500">PNG, JPG (MAX. 2MB per file)</p>
-                                </div>
-                                <input id="dropzone-file" name="foto_room[]" type="file" class="hidden" accept="image/*" multiple
-                                    onchange="previewFiles(event)" />
-                            </label>
-                        </div>
-                    </div> --}}
-
-
 
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Pilih fasilitas</label>
+                        <div class="flex m-5">
+                            <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                                class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                type="button">
+                                Tambahkan fasilitas
+                            </button>
+                        </div>
                         <div class="p-4 border border-gray-300 rounded-lg bg-gray-50">
                             @foreach ($facilities as $facility)
                                 <div class="flex items-center mb-2">
@@ -189,28 +170,6 @@
         }
     </script>
 
-    {{-- <script>
-        function previewFiles(event) {
-            var input = event.target;
-            var previewContainer = document.getElementById('preview-container');
-            var uploadIcon = document.getElementById('upload-icon');
-
-            previewContainer.innerHTML = "";
-            uploadIcon.classList.add('hidden');
-
-            if (input.files) {
-                Array.from(input.files).forEach(file => {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.classList.add("object-cover", "w-24", "h-24", "rounded-lg");
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
-    </script> --}}
+@include("owner.room.facility.__form")
 
 </x-dashboard-layout>

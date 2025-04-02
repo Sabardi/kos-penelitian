@@ -16,6 +16,7 @@ class RateController extends Controller
      */
     public function create(Booking $booking, $room)
     {
+        // return $booking;
         return view('tenant.review.review', compact('room', 'booking'));
     }
 
@@ -66,34 +67,21 @@ class RateController extends Controller
             $interaction->save();
         }
 
-
-        return 'ok';
-
-        return back()->with('success', 'Rating berhasil dikirim!');
+        return redirect(route('front.pesanan'))->with('success', 'Terimakasih sudah memberikan rating!');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Review $review)
     {
-        //
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:255',
+        ]);
+
+        $review->update($validated);
+
+        return  redirect(route('front.review'))->with('success', 'Terimakasih sudah memberikan rating!');
     }
 
     /**

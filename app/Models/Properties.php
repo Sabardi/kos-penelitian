@@ -24,6 +24,12 @@ class Properties extends Model
         return Attribute::make(fn() => $this->type ? PeriodeKosEnum::getDescription((string) $this->type) : null);
     }
 
+    public function scopeFilter($query, $params)
+    {
+        $query->when(@$params['type'], function ($query, $search) {
+            $query->where('type', 'LIKE', "%{$search}%");
+        });
+    }
 
 
     public function user()

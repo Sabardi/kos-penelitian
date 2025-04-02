@@ -24,7 +24,13 @@ class Location extends Model
         return $this->belongsToMany(Properties::class, 'public_locations', 'location_id', 'property_id')->withPivot('distance');
     }
 
-    
+    public function scopeFilter($query, $params)
+    {
+        $query->when(@$params['keyword'], function ($query, $search) {
+            $query->where('name', 'LIKE', "%{$search}%");
+        });
+    }
+
 
 
 }

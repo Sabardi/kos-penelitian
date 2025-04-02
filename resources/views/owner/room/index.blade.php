@@ -51,6 +51,7 @@
                     <x-owner.room-card imageSrc="{{ Storage::url($room->foto_room) }}" title="{{ $room->name }}"
                         location="{{ $room->property->address }}" price="{{ $room->price }}"
                         editUrl="{{ route('owner.room.edit', [$property, $room]) }}"
+                        showUrl="{{ route('front.detail', [$room, $room->slug]) }}"
                         deleteUrl="{{ route('owner.room.delete', [$property, $room]) }}" />
 
                 @empty

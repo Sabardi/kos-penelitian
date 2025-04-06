@@ -11,6 +11,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
+        // return $locations;
         return view('admin.location.index', compact('locations'));
     }
 
@@ -21,8 +22,12 @@ class LocationController extends Controller
 
     public function store(Request $request)
     {
-        Location::create($request->only('name'));
-        return redirect()->route('admin.location.index');
+        $request->validate([
+            'name' => 'required|string|unique:locations,name',
+        ]);
+        
+        Location::create($request->only(['name']));
+        return redirect()->route('location.index')->with('success', 'Location created successfully');
     }
 
     public function show(Location $location)
@@ -44,6 +49,6 @@ class LocationController extends Controller
     public function destroy(Location $location)
     {
         $location->delete();
-        return redirect()->route('admin.location.index');
+        return redirect()->route('adminlocation.index');
     }
 }

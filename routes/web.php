@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Front\FronController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TestRecomendationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FronController::class, 'index'])->name('home');
@@ -27,6 +29,9 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::get('/rekomendasi', [RecommendationController::class, 'recommend'])->name('search');
+Route::get('/recommendations', [TestRecomendationController::class, 'showRecommendations'])->name('recommendations');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

@@ -13,8 +13,8 @@ class UserOwnerSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory()->count(10)->create([
-        //     'role' => 'owner',
-        // ]);
+        User::factory()->count(5)->create([
+            'role' => 'owner',
+        ]);
     }
 }

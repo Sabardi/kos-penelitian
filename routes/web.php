@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Front\FronController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
+Route::get('/rekomendasi', [RekomendasiController::class, 'index'])->name('rekomendasi');
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/owner.php';

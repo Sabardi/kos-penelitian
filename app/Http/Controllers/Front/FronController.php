@@ -52,8 +52,7 @@ class FronController extends Controller
         $currentUserVector = $this->getCurrentUserVector($userId);
 
         // Ambil rekomendasi kamar
-        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector)
-            ->loadAvg('reviews', 'rating');
+        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
             return view('recommendations', compact('recommendedRooms'));
     }
@@ -65,8 +64,7 @@ class FronController extends Controller
         $topUsers = $this->getUserSimilarities($userId);
         $currentUserVector = $this->getCurrentUserVector($userId);
 
-        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector)
-            ->loadAvg('reviews', 'rating');
+        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
         return view('recommendations.index', compact('recommendedRooms'));
     }
@@ -124,7 +122,7 @@ class FronController extends Controller
             ->toArray(); // Convert ke array agar bisa digunakan dalam whereIn()
 
         // Query untuk mengambil data Room
-        return Room::whereIn('id', $recommendedRoomIds)
+        return Room::with(['property', 'facilities'])->whereIn('id', $recommendedRoomIds)
             ->where('availability', true)
             ->get();
     }

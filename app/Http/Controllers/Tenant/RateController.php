@@ -22,7 +22,7 @@ class RateController extends Controller
 
     public function storeRating(Request $request, $room)
     {
-        $room->rating()->create([
+        $room->rating()->updateOrCreate([
             'rating' => $request->input('rating'),
             'user_id' => Auth::user()->id,
         ]);

@@ -104,8 +104,7 @@
                                     </span>
                                     <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
                                         <i class="mr-1 fas fa-star"></i>
-                                        {{-- {{ number_format($recomedation->average_rating, 1) }} --}}
-                                        5.0
+                                        {{ number_format($recomedation->rating, 1) }}
                                         rating
                                     </span>
                                 </div>
@@ -118,11 +117,14 @@
                                 <div class="flex items-center mt-2">
                                     <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
                                     <div class="flex flex-wrap gap-2">
-                                        @foreach ($recomedation->facilities as $facility)
-                                            <span class="text-xs border badge bg-light text-dark">
-                                                <i class="me-1"></i>{{ $facility->name }}
-                                            </span>
-                                        @endforeach
+                                        @foreach ($recomedation->facilities->take(3) as $facility)
+                                        <span class="text-xs border badge bg-light text-dark">
+                                            <i class="me-1"></i>{{ $facility->name }}
+                                        </span>
+                                    @endforeach
+                                        <span class="text-xs border badge bg-light text-dark">
+                                            <i class="me-1"></i>+ {{ $recomedation->facilities->count() - 3 }} more
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +160,7 @@
                                     <i class="mr-1 fas fa-eye"></i>{{ $room->count_visitor }} views
                                 </span>
                                 <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
-                                    <i class="mr-1 fas fa-star"></i>{{ number_format($room->average_rating, 1) }}
+                                    <i class="mr-1 fas fa-star"></i>{{ number_format($room->rating, 1) }}
                                     rating
                                 </span>
                             </div>

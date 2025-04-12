@@ -22,16 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // View::composer('*', function ($view) {
-
-        //     $user = Auth::user();
-        //     if ($user && $user->role == 'owner') {
-
-        //         $property = Properties::where('user_id', $user->id)->first();
-        //         $view->with('property', $property);
-        //     } else {
-        //         $view->with('user', null);
-        //     }
-        // });
+    
     }
 }

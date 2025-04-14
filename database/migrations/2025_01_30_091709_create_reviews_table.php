@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained('rooms');
             $table->foreignId('user_id')->constrained('users');
             $table->integer('rating');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

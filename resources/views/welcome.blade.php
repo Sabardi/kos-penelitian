@@ -81,12 +81,13 @@
     </x-slot>
 
 
-    @if ($recommendedRooms->count() > 0)
 
+    @if ($recommendedRooms->count() > 0)
         <section class="bg-white dark:bg-gray-900">
             <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="mb-4 text-2xl font-semibold text-gray-900 dark:text-white">Rekomendasi Kosan</h2>
+                    <h2 class="mb-4 text-2xl font-semibold text-gray-900 dark:text-white">Kosan yang sering di kunjungi
+                    </h2>
 
                     <a href="{{ route('rekomendasi-kamar-kos') }}" class="text-2xl text-red-500 ">Lihat semua</a>
                 </div>
@@ -118,10 +119,10 @@
                                     <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($recomedation->facilities->take(3) as $facility)
-                                        <span class="text-xs border badge bg-light text-dark">
-                                            <i class="me-1"></i>{{ $facility->name }}
-                                        </span>
-                                    @endforeach
+                                            <span class="text-xs border badge bg-light text-dark">
+                                                <i class="me-1"></i>{{ $facility->name }}
+                                            </span>
+                                        @endforeach
                                         <span class="text-xs border badge bg-light text-dark">
                                             <i class="me-1"></i>+ {{ $recomedation->facilities->count() - 3 }} more
                                         </span>

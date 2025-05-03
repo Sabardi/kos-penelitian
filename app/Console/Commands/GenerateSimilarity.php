@@ -20,15 +20,17 @@ class GenerateSimilarity extends Command
         foreach ($users as $u1) {
             foreach ($users as $u2) {
                 if ($u1->id >= $u2->id) continue; // Hindari duplikasi dan diri sendiri
-
+                // Ambil rating yang diberikan user terhadap room (item)
                 $ratings1 = Review::where('user_id', $u1->id)->pluck('rating', 'room_id');
                 $ratings2 = Review::where('user_id', $u2->id)->pluck('rating', 'room_id');
 
-                $sim = $this->cosineSimilarity($ratings1, $ratings2);
-
+                // Hitung cosine similarity untuk pasangan pengguna/user
+                // $sim = $this->cosineSimilarity($ratings1, $ratings2);
+                // Simpan skor kemiripan ke dalam tabel similarity/ jika sudah ada maka update
                 Similarity::updateOrCreate(
                     ['user_id_1' => $u1->id, 'user_id_2' => $u2->id],
-                    ['similarity' => $sim]
+                    ['similarity' => $this->cosineSimilarity($ratings1, $ratings2)]
+                    // ['similarity' => $sim]
                 );
             }
         }
@@ -36,19 +38,24 @@ class GenerateSimilarity extends Command
         $this->info('Similarity updated.');
     }
 
-    private function cosineSimilarity($a, $b)
+    private function cosineSimilarity($vectorA, $vectorB)
     {
-        $dot = 0; $magA = 0; $magB = 0;
-        foreach ($a as $key => $valA) {
-            $valB = $b[$key] ?? null;
+        // dotItem = merupakan variable yang menyimpan rating
+        $dotItem = 0; $magnitudeA = 0; $magnitudeB = 0;
+        foreach ($vectorA as $key => $valA) {
+            $valB = $vectorB[$key] ?? null;
             if ($valB !== null) {
-                $dot += $valA * $valB;
-                $magA += $valA ** 2;
-                $magB += $valB ** 2;
+                // Bagian atas (dot product): ∑ A_i * B_i
+                $dotItem += $valA * $valB; 
+                // Bagian bawah: ∑ A_i^2 dan ∑ B_i^2
+                // $magA += $valA * $valA;
+                $magnitudeA += $valA ** 2;
+                $magnitudeB += $valB ** 2;
             }
         }
-        if ($magA == 0 || $magB == 0) return 0;
+        if ($magnitudeA == 0 || $magnitudeB == 0) return 0;
 
-        return $dot / (sqrt($magA) * sqrt($magB));
+        // Rumus cosine similarity
+        return $dotItem / (sqrt($magnitudeA) * sqrt($magnitudeB));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\GenerateSimilarity;
 use App\Models\Properties;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     protected $commands = [
-        \App\Console\Commands\GenerateSimilarity::class,
+        GenerateSimilarity::class,
     ];
 
     protected function schedule(Schedule $schedule)

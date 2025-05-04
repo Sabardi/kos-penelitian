@@ -15,6 +15,7 @@ class Room extends Model
 
     protected $fillable = [
         'name',
+        'rating',
         'property_id',
         'availability',
         'count_visitor',

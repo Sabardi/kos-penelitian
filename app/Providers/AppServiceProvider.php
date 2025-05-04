@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\GenerateRoomSimilarity;
+use App\Console\Commands\GenerateSimilarity;
 use App\Models\Properties;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -22,16 +25,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // View::composer('*', function ($view) {
+    
+    }
 
-        //     $user = Auth::user();
-        //     if ($user && $user->role == 'owner') {
+    protected $commands = [
+        GenerateSimilarity::class,
+        GenerateRoomSimilarity::class,
+    ];
 
-        //         $property = Properties::where('user_id', $user->id)->first();
-        //         $view->with('property', $property);
-        //     } else {
-        //         $view->with('user', null);
-        //     }
-        // });
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('generate:similarity')->cron('*/2 * * * *');
     }
 }

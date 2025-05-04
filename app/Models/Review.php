@@ -22,4 +22,31 @@ class Review extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+
+    // Event untuk update rating setelah review disimpan
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Ketika review baru ditambahkan atau diperbarui
+        static::saved(function ($review) {
+            $review->updateRoomRating($review->room_id);
+        });
+
+        // Ketika review dihapus
+        static::deleted(function ($review) {
+            $review->updateRoomRating($review->room_id);
+        });
+    }
+
+    // Fungsi untuk memperbarui rata-rata rating kamar
+    public function updateRoomRating($roomId)
+    {
+        $averageRating = self::where('room_id', $roomId)->avg('rating');
+        $room = Room::find($roomId);
+        if ($room) {
+            $room->rating = $averageRating;
+            $room->save();
+        }
+    }
 }

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('room_similarities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained('rooms');
-            $table->foreignId('user_id')->constrained('users');
-            $table->integer('rating');
-            $table->text('comment')->nullable();
+            $table->unsignedBigInteger('room_id_1');
+            $table->unsignedBigInteger('room_id_2');
+
+            // Nilai cosine similarity-nya
+            $table->float('similarity')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('room_similarities');
     }
 };

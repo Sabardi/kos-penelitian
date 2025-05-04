@@ -41,12 +41,14 @@ class GenerateSimilarity extends Command
     private function cosineSimilarity($vectorA, $vectorB)
     {
         // dotItem = merupakan variable yang menyimpan rating
-        $dotItem = 0; $magnitudeA = 0; $magnitudeB = 0;
+        $dotItem = 0;
+        $magnitudeA = 0;
+        $magnitudeB = 0;
         foreach ($vectorA as $key => $valA) {
             $valB = $vectorB[$key] ?? null;
             if ($valB !== null) {
                 // Bagian atas (dot product): ∑ A_i * B_i
-                $dotItem += $valA * $valB; 
+                $dotItem += $valA * $valB;
                 // Bagian bawah: ∑ A_i^2 dan ∑ B_i^2
                 // $magA += $valA * $valA;
                 $magnitudeA += $valA ** 2;

@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/rekomendasi', [RekomendasiController::class, 'index'])->name('rekomendasi');
+Route::get('/rekomendasi/room', [RekomendasiController::class, 'recommendItemBased'])->name('recommend.ItemBased');
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/owner.php';

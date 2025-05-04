@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\GenerateRoomSimilarity;
 use App\Console\Commands\GenerateSimilarity;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -13,4 +14,8 @@ Artisan::command('inspire', function () {
 
 Artisan::command('similarity:generate', function () {
     $this->call(GenerateSimilarity::class);
+})->purpose('Delete recent users')->everySecond();
+
+Artisan::command('app:generate-room-similarity', function () {
+    $this->call(GenerateRoomSimilarity::class);
 })->purpose('Delete recent users')->everySecond();

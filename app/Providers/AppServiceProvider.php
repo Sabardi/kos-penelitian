@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\GenerateRoomSimilarity;
 use App\Console\Commands\GenerateSimilarity;
 use App\Models\Properties;
 use Illuminate\Console\Scheduling\Schedule;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected $commands = [
         GenerateSimilarity::class,
+        GenerateRoomSimilarity::class,
     ];
 
     protected function schedule(Schedule $schedule)

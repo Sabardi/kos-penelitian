@@ -14,8 +14,8 @@ Artisan::command('inspire', function () {
 
 Artisan::command('similarity:generate', function () {
     $this->call(GenerateSimilarity::class);
-})->purpose('Delete recent users')->everyFiveMinutes();
+})->purpose('generate')->everyMinute()->withoutOverlapping();
 
 Artisan::command('app:generate-room-similarity', function () {
     $this->call(GenerateRoomSimilarity::class);
-})->purpose('Delete recent users')->everyFiveMinutes();
+})->purpose('generate')->everyMinute()->withoutOverlapping();

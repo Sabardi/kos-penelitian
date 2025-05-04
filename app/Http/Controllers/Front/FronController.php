@@ -43,31 +43,31 @@ class FronController extends Controller
         return view('allkos', compact('rooms'));
     }
 
-    // public function allrecommendedRoom()
-    // {
-    //     $userId = Auth::id();
+    public function allrecommendedRoom()
+    {
+        $userId = Auth::id();
 
-    //     // Ambil pengguna yang paling mirip
-    //     $topUsers = $this->getUserSimilarities($userId);
-    //     $currentUserVector = $this->getCurrentUserVector($userId);
+        // Ambil pengguna yang paling mirip
+        $topUsers = $this->getUserSimilarities($userId);
+        $currentUserVector = $this->getCurrentUserVector($userId);
 
         // Ambil rekomendasi kamar
         $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
-    //         return view('recommendations', compact('recommendedRooms'));
-    // }
+            return view('recommendations', compact('recommendedRooms'));
+    }
 
-    // public function recommendation()
-    // {
-    //     $userId = Auth::id();
+    public function recommendation()
+    {
+        $userId = Auth::id();
 
-    //     $topUsers = $this->getUserSimilarities($userId);
-    //     $currentUserVector = $this->getCurrentUserVector($userId);
+        $topUsers = $this->getUserSimilarities($userId);
+        $currentUserVector = $this->getCurrentUserVector($userId);
 
         $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
-    //     return view('recommendations.index', compact('recommendedRooms'));
-    // }
+        return view('recommendations.index', compact('recommendedRooms'));
+    }
 
     private function getUserSimilarities($userId)
     {
@@ -103,8 +103,6 @@ class FronController extends Controller
         foreach ($vectorA as $key => $valueA) {
             $dotProduct += $valueA * ($vectorB[$key] ?? 0);
         }
-
-        return $dotProduct;
 
         $normA = sqrt(array_sum(array_map(fn($x) => $x * $x, $vectorA)));
         $normB = sqrt(array_sum(array_map(fn($x) => $x * $x, $vectorB)));

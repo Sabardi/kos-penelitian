@@ -150,6 +150,8 @@
                                 </svg>
                                 Ajukan sewa
                             </button>
+
+            <x-modal.login />
                         @endauth
 
                     </div>

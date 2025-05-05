@@ -7,14 +7,17 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PropertyController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/admin/dashboard', function () {
-    return "admin";
-})->middleware('role:admin');
+// Route::get('/admin/dashboard', function () {
+//     return "admin";
+// })->middleware('role:admin');
 
-Route::get('/dashboard', DashboardController::class)->name('dashboard');
-Route::resource('/property', PropertyController::class);
-Route::resource('property.rooms', AllRoomController::class);
-Route::resource('/location', LocationController::class);
-Route::resource('/facility', FacilyController::class);
+Route::prefix('admin')->group(function () {
 
-Route::get('/rooms', [AllRoomController::class, 'allrooms'])->name('all.room');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::resource('/property', PropertyController::class);
+    Route::resource('property.rooms', AllRoomController::class);
+    Route::resource('/location', LocationController::class);
+    Route::resource('/facility', FacilyController::class);
+
+    Route::get('/rooms', [AllRoomController::class, 'allrooms'])->name('all.room');
+});

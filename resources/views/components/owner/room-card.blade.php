@@ -15,7 +15,7 @@
     <div class="p-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $title }}</h3>
         <p class="text-gray-600 dark:text-gray-400">{{ $location }}</p>
-        <p class="text-lg font-bold text-red-500">{{ $price }}</p>
+        <p class="text-lg font-bold text-red-500">Rp.{{ number_format($price, 0, ',', '.') }} /bulan</p>
         <div class="flex items-center mt-2">
             <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
             <p class="text-sm text-gray-500 dark:text-gray-400">{{ $distance }}</p>

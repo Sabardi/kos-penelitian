@@ -11,7 +11,8 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        return view('admin.location.index', compact('locations'));
+        return $locations;
+        // return view('admin.location.index', compact('locations'));
     }
 
     public function create()

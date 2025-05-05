@@ -16,7 +16,7 @@
             {{$location}}
         </p>
         <p class="text-lg font-bold text-red-500">
-            Rp.{{$price}} /bulan
+            Rp.{{ number_format($price, 0, ',', '.') }} /bulan
         </p>
         <div class="flex items-center mt-2">
             <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>

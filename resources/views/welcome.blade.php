@@ -131,7 +131,7 @@
                             </div>
                             <div class="p-4">
                                 <p class="text-lg font-bold text-red-500">
-                                    Rp{{ $recomedation->price }} /bulan
+                                    Rp{{ number_format($recomedation->price, 0, ',', '.') }} /{{ $recomedation->property->time_period }}
                                 </p>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="p-4">
                             <p class="text-lg font-bold text-red-500">
-                                Rp{{ $room->price }} /bulan
+                                Rp.{{ number_format($room->price, 0, ',', '.') }} / {{ $room->property->time_period }}
                             </p>
                         </div>
                     </div>

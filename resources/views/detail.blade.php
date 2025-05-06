@@ -16,7 +16,7 @@
                     </h1>
                     <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
                         <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-                            Rp. {{ $room->price }} /bulan
+                            Rp.{{ number_format($room->price, 0, ',', '.') }} /bulan
                         </p>
 
                         <div class="flex items-center gap-2 mt-2 sm:mt-0">

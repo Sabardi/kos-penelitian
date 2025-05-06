@@ -73,7 +73,8 @@
                                 data-overlay="#middle-center-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="mr-2 bi bi-calendar-check" viewBox="0 0 16 16">
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm11.854 3.854a.5.5 0 0 0-.708-.708L7.5 11.293 5.854 9.646a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l5-5z"/>
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm11.854 3.854a.5.5 0 0 0-.708-.708L7.5 11.293 5.854 9.646a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l5-5z" />
                                 </svg>
                                 Pesan kamar
                             </button>
@@ -142,8 +143,8 @@
                         @else
                             <button id="openModal"
                                 class="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="mr-2 bi bi-cash" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="mr-2 bi bi-cash" viewBox="0 0 16 16">
                                     <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
                                     <path
                                         d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
@@ -151,7 +152,7 @@
                                 Ajukan sewa
                             </button>
 
-            <x-modal.login />
+                            <x-modal.login />
                         @endauth
 
                     </div>

@@ -110,7 +110,7 @@
                                     </span>
                                 </div>
                                 <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                                    {{ $recomedation->property->name }}-{{ $recomedation->name }}
+                                    {{ $recomedation->name }}
                                 </h3>
                                 <p class="text-base text-gray-600 dark:text-gray-400">
                                     {{ $recomedation->property->regency }}
@@ -166,7 +166,7 @@
                                 </span>
                             </div>
                             <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                                {{ $room->property->name }}-{{ $room->name }}
+                                {{ $room->name }}
                             </h3>
                             <p class="text-base text-gray-600 dark:text-gray-400">
                                 {{ $room->property->regency }}

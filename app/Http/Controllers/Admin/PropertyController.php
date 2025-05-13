@@ -13,8 +13,8 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Properties::with('locations')->get();
-        return $properties;
-        // return view('admin.property.index', compact('properties'));
+        // return $properties;
+        return view('admin.property.index', compact('properties'));
     }
 
     public function create()

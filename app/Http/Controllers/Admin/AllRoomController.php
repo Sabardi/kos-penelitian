@@ -24,63 +24,64 @@ class AllRoomController extends Controller
     {
         // return $property;
         $rooms = Room::where('property_id', $property)->with('property', 'facilities')->get();
+        // return $rooms;
         return view('admin.room.index', compact('property', 'rooms'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create($property)
-    {
-        $facilities = Facility::all(); // get all facilities
-        return view('admin.room.create', compact('property', 'facilities'));
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  */
+    // public function create($property)
+    // {
+    //     $facilities = Facility::all(); // get all facilities
+    //     return view('admin.room.create', compact('property', 'facilities'));
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // /**
+    //  * Store a newly created resource in storage.
+    //  */
 
 
-    public function store(Request $request, $property)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'availability' => 'boolean',
-            'count_visitor' => 'integer|min:0',
-            'size' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'foto_room' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'facilities' => 'array'
-        ]);
+    // public function store(Request $request, $property)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'availability' => 'boolean',
+    //         'count_visitor' => 'integer|min:0',
+    //         'size' => 'required|string',
+    //         'price' => 'required|numeric|min:0',
+    //         'foto_room' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    //         'facilities' => 'array'
+    //     ]);
 
-        // Set property_id dari parameter
-        $validatedData['property_id'] = $property;
+    //     // Set property_id dari parameter
+    //     $validatedData['property_id'] = $property;
 
-        $validatedData['foto_room'] = $request->file('foto_room')->store('rooms', 'public');
+    //     $validatedData['foto_room'] = $request->file('foto_room')->store('rooms', 'public');
 
-        // Simpan kamar ke database
-        $room = Room::create($validatedData);
+    //     // Simpan kamar ke database
+    //     $room = Room::create($validatedData);
 
-        // Menyimpan fasilitas ke tabel pivot jika ada
-        if ($request->has('facilities')) {
-            $room->facilities()->sync($request->facilities);
-        }
+    //     // Menyimpan fasilitas ke tabel pivot jika ada
+    //     if ($request->has('facilities')) {
+    //         $room->facilities()->sync($request->facilities);
+    //     }
 
-        return redirect()->route('admin.property.rooms.index', $property)->with('success', 'Room created successfully');
-    }
+    //     return redirect()->route('admin.property.rooms.index', $property)->with('success', 'Room created successfully');
+    // }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
     public function edit($property, Room $room)
     {
         $facilities = Facility::all(); // get all facilities

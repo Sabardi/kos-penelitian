@@ -18,6 +18,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('property.rooms', AllRoomController::class);
     Route::resource('/location', LocationController::class);
     Route::resource('/facility', FacilyController::class);
+    Route::resource('/booking', FacilyController::class);
+    Route::resource('/review', FacilyController::class);
 
     Route::get('/rooms', [AllRoomController::class, 'allrooms'])->name('all.room');
 });

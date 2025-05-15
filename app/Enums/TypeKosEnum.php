@@ -23,4 +23,7 @@ final class TypeKosEnum extends Enum
 
     #[Description('Campur')]
     const campur = "Campur";
+
+        #[Description('Keluarga')]
+    const Keluarga = "Keluarga";
 }

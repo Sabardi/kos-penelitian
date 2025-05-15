@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Facility;
 use App\Models\Review;
 use App\Models\Room;
+use App\Models\UserPreference;
 use App\Models\UserRoomInteractions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,9 @@ class FronController extends Controller
     public function index()
     {
         $userId = Auth::id();
+
+
+        // Ambil semua kamar 
 
         // Ambil pengguna yang paling mirip
         $topUsers = $this->getUserSimilarities($userId);
@@ -31,10 +35,15 @@ class FronController extends Controller
             ->where('availability', true)
             ->get();
 
+        // cek apakah user dengan role tenant sudah memiliki reference, jika belum arahkan ke view create reference
+        if (Auth::check() && Auth::user()->role === 'tenant' && !Auth::user()->reference()->exists()) {
+            return redirect()->route('create.reference');
+        }
 
-            $facilities = Facility::all();
+        $facilities = Facility::all();
 
-        return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
+        return view('welcome', compact('rooms', 'facilities'));
+        // return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 
     public function allroom()
@@ -54,7 +63,7 @@ class FronController extends Controller
         // Ambil rekomendasi kamar
         $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
-            return view('recommendations', compact('recommendedRooms'));
+        return view('recommendations', compact('recommendedRooms'));
     }
 
     public function recommendation()
@@ -148,7 +157,7 @@ class FronController extends Controller
         $title = $room->slug;
 
         // return $title;
-        return view('detail', compact('room', 'reviews', 'title' ));
+        return view('detail', compact('room', 'reviews', 'title'));
     }
 
     public function search(Request $request)

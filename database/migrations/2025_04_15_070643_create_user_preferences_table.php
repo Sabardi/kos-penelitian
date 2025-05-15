@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('user_preferences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('location');
-            $table->integer('min_price')->nullable();
-            $table->integer('max_price')->nullable();
+            $table->string('type')->nullable(); // array lokasi
+            $table->json('locations')->nullable(); // array lokasi
             $table->json('facilities')->nullable(); // array fasilitas
-            $table->enum('gender_type', ['putra', 'putri', 'campur'])->nullable();
             $table->timestamps();
         });
     }
+    // $table->string('location')->nullable();
+    // $table->integer('min_price')->nullable();
+    // $table->integer('max_price')->nullable();
+    // $table->enum('gender_type', ['putra', 'putri', 'campur'])->nullable();
 
     /**
      * Reverse the migrations.

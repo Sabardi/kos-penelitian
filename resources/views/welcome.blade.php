@@ -82,7 +82,7 @@
 
 
 
-    @if ($recommendedRooms->count() > 0)
+    {{-- @if ($recommendedRooms->count() > 0)
         <section class="bg-white dark:bg-gray-900">
             <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between mb-4">
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </section>
-    @endif
+    @endif --}}
 
     <section class="bg-white dark:bg-gray-900">
         <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Front\BookingController;
 use App\Http\Controllers\Tenant\RateController;
 use App\Http\Controllers\Tenant\TenantController;
+use App\Http\Controllers\UserReperenceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:tenant'])->group(function () {
@@ -22,5 +23,10 @@ Route::middleware(['auth', 'role:tenant'])->group(function () {
     // review
     Route::get('/review', [TenantController::class, 'review'])->name('front.review');
     Route::put('/rating/review/{review}', [RateController::class, 'update'])->name('front.rating.update');
+
+    Route::get('/create/reference', [UserReperenceController::class, 'createReference'])->name('create.reference');
+Route::post('reference/store', [UserReperenceController::class, 'store'])->name('reference.store');
+
+Route::get('/reference', [UserReperenceController::class, 'index'])->name('reference.index');
 });
 

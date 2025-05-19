@@ -39,61 +39,68 @@ class UserReperenceController extends Controller
         // Ambil fasilitas dari user preference berdasarkan user yang sedang login
         $userPreferences = UserPreference::where('user_id', Auth::id())->first();
 
-        // Pastikan ada fasilitas yang dipilih oleh user
-        if (!$userPreferences || empty($userPreferences->facilities)) {
-            return response()->json(['message' => 'No facilities selected'], 400);
-        }
+        // // Pastikan ada fasilitas yang dipilih oleh user
+        // if (!$userPreferences || empty($userPreferences->facilities)) {
+        //     return response()->json(['message' => 'No facilities selected'], 400);
+        // }
 
         // Ambil fasilitas yang dipilih oleh user (ID fasilitas)
         $facilityIds = $userPreferences->facilities;
         $locationIds = $userPreferences->locations;
         $roomType = $userPreferences->type;
 
-        // Cari kamar yang memiliki fasilitas yang sesuai dengan pilihan user
+        // // Cari kamar yang memiliki fasilitas yang sesuai dengan pilihan user
         // $rooms = Room::with('facilities', 'property.locations')->whereHas('facilities', function ($query) use ($facilityIds, $locationIds) {
         //     $query->whereIn('facilities.id', $facilityIds)
         //      ->whereHas('property.locations', function ($query) use ($locationIds) {
         //     $query->whereIn('locations.id', $locationIds); // Filter berdasarkan lokasi properti
         // })
         //     ; // Pastikan menggunakan alias 'facilities.id'
-
-
         // })
         // ->get();
 
+        // return $rooms;
+
         // Cari kamar yang memiliki fasilitas yang sesuai dengan pilihan user dan lokasi yang sesuai
-        // $rooms = Room::with('facilities', 'property.locations') // Memuat relasi fasilitas dan lokasi
-        //     ->whereHas('facilities', function ($query) use ($facilityIds) {
+        $rooms = Room::with('facilities', 'property.locations') // Memuat relasi fasilitas dan lokasi
+            ->whereHas('facilities', function ($query) use ($facilityIds) {
+                $query->whereIn('facilities.id', $facilityIds); // Filter berdasarkan fasilitas
+            })
+            ->whereHas('property.locations', function ($query) use ($locationIds) {
+                $query->whereIn('locations.id', $locationIds); // Filter berdasarkan lokasi properti
+            })
+            ->whereHas('property', function ($query) use ($roomType) {
+                $query->where('type', $roomType); // Filter berdasarkan tipe properti
+            })
+            ->get();
+
+            // return $rooms;
+        // return response()->json($rooms);
+
+        // Cari kos-kosan yang memiliki fasilitas yang sesuai dengan pilihan user dan lokasi yang sesuai
+        // $properties = Properties::whereHas('rooms', function ($query) use ($facilityIds,  $roomType) {
+        //     // Filter berdasarkan fasilitas
+        //     $query->whereHas('facilities', function ($query) use ($facilityIds) {
         //         $query->whereIn('facilities.id', $facilityIds); // Filter berdasarkan fasilitas
-        //     })
-        //     ->whereHas('property.locations', function ($query) use ($locationIds) {
+        //     });
+
+        //     // Filter berdasarkan tipe kamar jika ada
+        //     if ($roomType) {
+        //         $query->where('type', $roomType);
+        //     }
+        // })
+        //     ->whereHas('locations', function ($query) use ($locationIds) {
         //         $query->whereIn('locations.id', $locationIds); // Filter berdasarkan lokasi properti
         //     })
         //     ->get();
 
-        // Cari kos-kosan yang memiliki fasilitas yang sesuai dengan pilihan user dan lokasi yang sesuai
-        $properties = Properties::whereHas('rooms', function ($query) use ($facilityIds,  $roomType) {
-            // Filter berdasarkan fasilitas
-            $query->whereHas('facilities', function ($query) use ($facilityIds) {
-                $query->whereIn('facilities.id', $facilityIds); // Filter berdasarkan fasilitas
-            });
-
-            // Filter berdasarkan tipe kamar jika ada
-            if ($roomType) {
-                $query->where('type', $roomType);
-            }
-        })
-            ->whereHas('locations', function ($query) use ($locationIds) {
-                $query->whereIn('locations.id', $locationIds); // Filter berdasarkan lokasi properti
-            })
-            ->get();
-
         // return $properties;
 
-        // Mengembalikan daftar kamar yang ditemukan
-        // return response()->json($properties);
+        // // Mengembalikan daftar kamar yang ditemukan
+        // // return response()->json($properties);
 
-        return view('tes', compact('properties' ));
+        // return view('tes', compact('properties' ));
+        return view('tes', compact('rooms' ));
     }
     public function createReference()
     {

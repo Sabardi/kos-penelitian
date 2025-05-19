@@ -15,22 +15,11 @@ class LocationSeeder extends Seeder
     public function run(): void
     {
         $locations = [
-            'Kampus',
-            'Kantor',
-            'Kampus UMMAT',
-            'Gacoan',
-            'kampus, poltekkes mataram kampus B',
-            'Dekat kampus universitas pendidikan mandalika',
-            'Universitas Mataram',
-            'Kampus unram',
-            'Dekat dengan kampus universitas Mataram',
-            'UIN MATARAM',
-            'Kampus STKIP yapis dompu',
-            'UIN Mataram',
-            'Fakultas Kedokteran',
-            'Pusat perbelanjaan dan kampus',
-            'Kampus uniqhba',
-            'Di tengah perumahan masyarakat',
+           'Universitas',
+           'Pusat Perbelanjaan',
+           'Tempat Ibadah',
+           'Pasar Tradisional',
+           'Kantor Pemerintahan',
         ];
 
         // foreach ($locations as $location) {

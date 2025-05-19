@@ -14,11 +14,13 @@ class FacilitySeeder extends Seeder
     public function run(): void
     {
         $facilities = [
-            'WiFi Gratis',
-            'Kolam Renang',
-            'Parkir Luas',
-            'AC',
-            'Sarapan Gratis',
+            // 'AC',
+            'Kamar Mandi Dalam',
+            'Kamar Mandi Luar',
+            'Dapur Bersama',
+            'Keamanan 24 Jam',
+            'Wifi',
+            'kasur'
         ];
 
         foreach ($facilities as $facility) {

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\PeriodeKosEnum;
-use App\Enums\TypeKosEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,12 +41,6 @@ class Properties extends Model
     {
         return $this->hasMany(Room::class, 'property_id');
     }
-
-    // public function locations()
-    // {
-    //     return $this->belongsToMany(Location::class, 'public_locations')
-    //                 ->withPivot('distance');
-    // }
 
     public function locations()
     {

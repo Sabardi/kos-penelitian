@@ -7,6 +7,7 @@
     'showUrl' => '',
     'editUrl' => '',
     'deleteUrl' => '',
+    'type' => '',
 ])
 
 <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -19,6 +20,9 @@
         <div class="flex items-center mt-2">
             <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
             <p class="text-sm text-gray-500 dark:text-gray-400">{{ $distance }}</p>
+        </div>
+        <div class="">
+            {{ $type }}
         </div>
         <div class="flex justify-center mt-4 space-x-2">
             <a href="{{ $showUrl }}" target="_blank"

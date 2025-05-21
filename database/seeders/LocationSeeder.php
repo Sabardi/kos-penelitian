@@ -20,6 +20,7 @@ class LocationSeeder extends Seeder
            'Tempat Ibadah',
            'Pasar Tradisional',
            'Kantor Pemerintahan',
+           'Fasilitas Kesehatan'
         ];
 
         // foreach ($locations as $location) {

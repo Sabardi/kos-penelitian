@@ -98,9 +98,9 @@
         </div>
     </section>
     <!-- Menampilkan Hasil Pencarian Kos-kosan -->
-        {{-- @if(count($rooms) > 0)
+    {{-- @if (count($rooms) > 0)
             <div class="mt-6">
-                @foreach($rooms as $room)
+                @foreach ($rooms as $room)
                     <div class="p-4 mb-4 border rounded-lg property-card">
                         <h2 class="text-2xl font-bold">{{ $room->name }}</h2>
                         <p><strong>Harga:</strong> {{ $room->price }} IDR</p>
@@ -110,7 +110,7 @@
 
                         <!-- Menampilkan Fasilitas Kamar -->
                         <p><strong>Fasilitas:</strong>
-                            @foreach($room->facilities as $facility)
+                            @foreach ($room->facilities as $facility)
                                 {{ $facility->name }},
                             @endforeach
                         </p>
@@ -118,13 +118,13 @@
                 @endforeach
             </div> --}}
 
-        {{-- <div class="mt-6">
-            @foreach($properties as $property)
+    {{-- <div class="mt-6">
+            @foreach ($properties as $property)
                 <div class="p-4 mb-4 border rounded-lg property-card">
                     <h2 class="text-2xl font-bold">{{ $property->name }}</h2>
                     <p>{{ $property->description }}</p>
                     <p><strong>Lokasi:</strong>
-                        @foreach($property->locations as $location)
+                        @foreach ($property->locations as $location)
                             {{ $location->name }},
                         @endforeach
                     </p>
@@ -132,7 +132,7 @@
                     <!-- Menampilkan Kamar dalam Properti -->
                     <h3 class="mt-4">Kamar Tersedia:</h3>
                     <ul>
-                        @foreach($property->rooms as $room)
+                        @foreach ($property->rooms as $room)
                             <li class="room-item">
                                 <strong>{{ $room->name }}</strong>
                                 <p><strong>Tipe Kamar:</strong> {{ $room->property->type }}</p>
@@ -143,7 +143,7 @@
 
                                 <!-- Menampilkan Fasilitas Kamar -->
                                 <p><strong>Fasilitas:</strong>
-                                    @foreach($room->facilities as $facility)
+                                    @foreach ($room->facilities as $facility)
                                         {{ $facility->name }},
                                     @endforeach
                                 </p>
@@ -157,4 +157,3 @@
         <p>Tidak ada kos-kosan yang sesuai dengan kriteria pencarian.</p>
     @endif --}}
 </x-app-layout>
-

@@ -17,53 +17,54 @@ class FronController extends Controller
     {
         // rekomendasi
         // Ambil ID pengguna saat ini
-        $userId = Auth::id();
+        // $userId = Auth::id();
 
-        // Bangun matriks pengguna-kamar (hanya ambil interaksi yang relevan)
-        $userRoomMatrix = UserRoomInteractions::select('user_id', 'room_id', 'interaction_value')
-            ->get()
-            ->groupBy('user_id')
-            ->mapWithKeys(function ($interactions, $userId) {
-                return [
-                    $userId => $interactions->pluck('interaction_value', 'room_id')->toArray(),
-                ];
-            });
+        // // Bangun matriks pengguna-kamar (hanya ambil interaksi yang relevan)
+        // $userRoomMatrix = UserRoomInteractions::select('user_id', 'room_id', 'interaction_value')
+        //     ->get()
+        //     ->groupBy('user_id')
+        //     ->mapWithKeys(function ($interactions, $userId) {
+        //         return [
+        //             $userId => $interactions->pluck('interaction_value', 'room_id')->toArray(),
+        //         ];
+        //     });
 
-        // Ambil vektor interaksi pengguna saat ini
-        $currentUserVector = $userRoomMatrix[$userId] ?? [];
+        // // Ambil vektor interaksi pengguna saat ini
+        // $currentUserVector = $userRoomMatrix[$userId] ?? [];
 
-        // return $currentUserVector;
+        // // return $currentUserVector;
 
-        // Hitung similaritas dengan pengguna lain
-        $similarities = [];
-        foreach ($userRoomMatrix as $otherUserId => $otherUserVector) {
-            if ($otherUserId === $userId) {
-                continue; // Lewati diri sendiri
-            }
+        // // Hitung similaritas dengan pengguna lain
+        // $similarities = [];
+        // foreach ($userRoomMatrix as $otherUserId => $otherUserVector) {
+        //     if ($otherUserId === $userId) {
+        //         continue; // Lewati diri sendiri
+        //     }
 
-            $similarity = $this->cosineSimilarity($currentUserVector, $otherUserVector);
-            $similarities[$otherUserId] = $similarity;
-        }
+        //     $similarity = $this->cosineSimilarity($currentUserVector, $otherUserVector);
+        //     $similarities[$otherUserId] = $similarity;
+        // }
 
-        // Urutkan pengguna berdasarkan similaritas tertinggi
-        arsort($similarities);
+        // // Urutkan pengguna berdasarkan similaritas tertinggi
+        // arsort($similarities);
 
-        // return $similarities;
+        // // return $similarities;
 
-        // Ambil 5 pengguna teratas
-        $topUsers = array_slice(array_keys($similarities), 0, 5);
+        // // Ambil 5 pengguna teratas
+        // $topUsers = array_slice(array_keys($similarities), 0, 5);
 
-        // return $topUsers;
+        // // return $topUsers;
 
-        // Rekomendasikan kamar dari pengguna mirip
-        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
+        // // Rekomendasikan kamar dari pengguna mirip
+        // $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector);
 
         $rooms = Room::with(['reviews', 'property', 'facilities'])
-        ->withAvg('reviews', 'rating')
-        ->where('availability', true)
-        ->get();
+            ->withAvg('reviews', 'rating')
+            ->where('availability', true)
+            ->get();
 
-        return view('welcome', compact('rooms', 'recommendedRooms'));
+        // return view('welcome', compact('rooms', 'recommendedRooms'));
+        return view('welcome', compact('rooms'));
     }
 
 

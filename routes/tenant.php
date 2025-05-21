@@ -29,4 +29,3 @@ Route::post('reference/store', [UserReperenceController::class, 'store'])->name(
 
 Route::get('/reference', [UserReperenceController::class, 'index'])->name('reference.index');
 });
-

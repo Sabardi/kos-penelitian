@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Facility;
+use App\Models\Location;
 use App\Models\Review;
 use App\Models\Room;
 use App\Models\UserPreference;
@@ -41,8 +42,8 @@ class FronController extends Controller
         }
 
         $facilities = Facility::all();
-
-        return view('welcome', compact('rooms', 'facilities'));
+        $locations = Location::all();
+        return view('welcome', compact('rooms', 'facilities', 'locations'));
         // return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 

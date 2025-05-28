@@ -8,10 +8,6 @@ use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/admin/dashboard', function () {
-//     return "admin";
-// })->middleware('role:admin');
-
 Route::prefix('admin')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -27,4 +23,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/rooms', [AllRoomController::class, 'allrooms'])->name('all.room');
     Route::get('/booking', [AllRoomController::class, 'allbooking'])->name('all.booking');
 
+
+    
 });

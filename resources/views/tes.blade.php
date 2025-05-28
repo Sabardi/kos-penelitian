@@ -61,7 +61,10 @@
                         </div>
                     </div>
                 @empty
-                    <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <p>
+                        tidak ada kos yang sesuai dengan preferensi anda
+                    </p>
+                    {{-- <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
                         <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
                             src="https://storage.googleapis.com/a1aa/image/jWRpUnh4Pxu83LhHlKEsVE2e7zz-m4FxjjN1r10qjXM.jpg"
                             width="600" />
@@ -92,7 +95,7 @@
                                 Rp2.275.000 /bulan
                             </p>
                         </div>
-                    </div>
+                    </div> --}}
                 @endforelse
             </div>
         </div>

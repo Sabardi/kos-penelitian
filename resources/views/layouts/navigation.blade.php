@@ -6,7 +6,7 @@
             <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Kos Lombok</span>
         </a>
         <div class="flex items-center lg:order-2">
-            <form id="search-form" class="hidden w-full mr-3 lg:inline-block">
+            {{-- <form id="search-form" class="hidden w-full mr-3 lg:inline-block">
                 <label for="search-bar"
                     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
                 <div class="relative">
@@ -21,8 +21,8 @@
                         class="block w-full px-4 py-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Search" required>
                 </div>
-            </form>
-            <button data-collapse-toggle="mobile-menu-search" aria-controls="mobile-menu-search" aria-expanded="false"
+            </form> --}}
+            {{-- <button data-collapse-toggle="mobile-menu-search" aria-controls="mobile-menu-search" aria-expanded="false"
                 type="button"
                 class="lg:hidden inline-flex mr-2 lg:mr-0 items-center text-gray-800 dark:text-gray-400 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2.5 lg:px-5 py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
                 <svg class="w-5 h-5 lg:mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +30,7 @@
                         d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                         clip-rule="evenodd"></path>
                 </svg>
-            </button>
+            </button> --}}
             <span class="hidden w-px h-5 mx-2 bg-gray-200 lg:inline lg:mx-3"></span>
             @auth
                 <button type="button" data-dropdown-toggle="language-dropdown"
@@ -174,7 +174,7 @@
             </button>
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-search">
-            <form class="flex items-center mt-4 lg:hidden">
+            {{-- <form class="flex items-center mt-4 lg:hidden">
                 <label for="search-mobile" class="sr-only">Search</label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -196,7 +196,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg> Search</button>
-            </form>
+            </form> --}}
             <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
                     <a href="/"

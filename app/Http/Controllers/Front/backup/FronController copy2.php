@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class FronController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        return $request;
         $userId = Auth::id();
 
         // Ambil pengguna yang paling mirip

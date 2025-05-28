@@ -5,6 +5,7 @@
                 @csrf
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Facilities Selection -->
+                    <h1>FASILITAS</h1>
                     @foreach ($facilities as $facility)
                         <div>
                             <label class="inline-flex items-center">
@@ -14,10 +15,11 @@
                             </label>
                         </div>
                     @endforeach
-
-                    <!-- Location Selection -->
-                    <hr>
-                    @foreach ($locations as $location)
+                </div>
+                <br>
+                 <div class="grid grid-cols-2 gap-4">
+                    <h1>LOKASI</h1>
+                           @foreach ($locations as $location)
                         <div>
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="locations[]" value="{{ $location->id }}"
@@ -27,9 +29,9 @@
                         </div>
                     @endforeach
                 </div>
-                type kamar
                 <div>
-                    <label for="type" class="block mb-1">Tipe Kamar</label>
+                    <h1>TIPE KAMAR</h1>
+                    {{-- <label for="type" class="block mb-1">Tipe Kamar</label> --}}
                     <select name="type" id="type" class="form-select">
                         <option value="">Pilih tipe kamar</option>
                         <option value="putra">Putra</option>

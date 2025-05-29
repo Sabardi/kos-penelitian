@@ -27,19 +27,6 @@
         </div>
     </x-slot>
 
-        <section class="bg-white dark:bg-gray-900 py-4">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form action="{{ route('home') }}" method="get">
-                <label for="filter">filter</label>
-                <input type="text" name="filter" id="">
-                <input type="text" name="" id="">
-                <button type="submit">submit</button>
-            </form>
-        </div>
-    </section>
-    
-    
     <section class="bg-white dark:bg-gray-900 py-4">
 
               {{-- <div class="flex space-x-4 p-4">
@@ -134,6 +121,7 @@
                 document.getElementById('aturan-btn').addEventListener('click', () => openModalId('modal-aturan'));
                 document.getElementById('kamar-btn').addEventListener('click', () => openModalId('modal-kamar'));
             </script> --}}
+
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- FILTER FASILITAS -->
@@ -237,8 +225,7 @@
                     const typeMatch = selectedType === '' || selectedType === roomType;
                     const areaMatch = selectedFacilities.every(f => area.includes(f));
 
-                   // card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
-                    card.style.display = facilityMatch && areaMatch ? '' : 'none';
+                    card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
                 });
             }
         });

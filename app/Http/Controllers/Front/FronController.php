@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\DB;
 
 class FronController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // if($request->has('keyword')) {
+        //     $keyword = $request->input('keyword');
+        //     return $keyword;
+        //     // return redirect()->route('search', ['keyword' => $keyword]);
+        // }
+        // return $request;
         $userId = Auth::id();
 
 
@@ -43,6 +49,8 @@ class FronController extends Controller
 
         $facilities = Facility::all();
         $locations = Location::all();
+
+        // return $rooms;
         return view('welcome', compact('rooms', 'facilities', 'locations'));
         // return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }

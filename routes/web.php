@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FronController::class, 'index'])->name('home');
+// Route::get('/{keyword}', [FronController::class, 'index'])->name('home.search');
 Route::get('/semua-kamar-kos', [FronController::class, 'allroom'])->name('semua-kamar-kos');
 Route::get('/rekomendasi-kamar-kos', [FronController::class, 'allrecommendedRoom'])->name('rekomendasi-kamar-kos');
 

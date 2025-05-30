@@ -29,14 +29,13 @@
         <!-- Page Heading -->
         @isset($header)
             {{-- make it a hero carousel --}}
-            <section class="bg-white rounded-full dark:bg-gray-900 shadow-sm">
-                <div class="bg-gray-700 bg-center bg-no-repeat bg-cover bg-blend-multiply"
+            <section class="bg-white rounded-full dark:bg-gray-900 shadow-sm pb-10">
+                <div class="bg-gray-700 bg-center bg-no-repeat bg-cover bg-blend-multiply rounded-lg shadow-lg"
                     style="background-image: url('{{ asset('assets/banner/coast-house-view.jpg') }}');">
                     <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </div>
-
             </section>
         @endisset
 

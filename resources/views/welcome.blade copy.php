@@ -235,10 +235,10 @@
 
                     const facilityMatch = selectedFacilities.every(f => facilities.includes(f));
                     const typeMatch = selectedType === '' || selectedType === roomType;
-                    const areaMatch = selectedFacilities.every(f => area.includes(f));
+                    const areaMatch = selectedArea.every(f => area.includes(f));
 
                    // card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
-                    card.style.display = facilityMatch && areaMatch ? '' : 'none';
+                    card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
                 });
             }
         });

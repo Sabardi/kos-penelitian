@@ -27,150 +27,73 @@
         </div>
     </x-slot>
 
-        <section class="bg-white dark:bg-gray-900 py-4">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form action="{{ route('home') }}" method="get">
-                <label for="filter">filter</label>
-                <input type="text" name="filter" id="">
-                <input type="text" name="" id="">
-                <button type="submit">submit</button>
-            </form>
-        </div>
-    </section>
-    
-    
-    <section class="bg-white dark:bg-gray-900 py-4">
-
-              {{-- <div class="flex space-x-4 p-4">
-                <button id="bulanan-btn"
-                    class="py-2 px-4 border rounded-lg hover:bg-gray-200 focus:outline-none">Bulanan</button>
-                <button id="harga-btn"
-                    class="py-2 px-4 border rounded-lg hover:bg-gray-200 focus:outline-none">Harga</button>
-                <button id="fasilitas-btn"
-                    class="py-2 px-4 border rounded-lg hover:bg-gray-200 focus:outline-none">Fasilitas</button>
-                <button id="aturan-btn" class="py-2 px-4 border rounded-lg hover:bg-gray-200 focus:outline-none">Aturan
-                    Kos</button>
-                <button id="kamar-btn" class="py-2 px-4 border rounded-lg hover:bg-gray-200 focus:outline-none">Kamar
-                    Tersedia</button>
-            </div>
-
-            <!-- Modals -->
-            <div id="modal-bulanan"
-                class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-8 rounded-lg">
-                    <h2 class="text-xl font-semibold mb-4">Bulanan Modal</h2>
-                    <p>This is the content for the Bulanan tab.</p>
-                    <button class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        onclick="closeModal('modal-bulanan')">Close</button>
-                </div>
-            </div>
-
-            <div id="modal-harga"
-                class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-8 rounded-lg">
-                    <h2 class="text-xl font-semibold mb-4">Harga Modal</h2>
-                    <p>This is the content for the Harga tab.</p>
-                    <button class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        onclick="closeModal('modal-harga')">Close</button>
-                </div>
-            </div>
-
-            <div id="modal-fasilitas"
-                class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-8 rounded-lg">
-                    <div id="facility-filters" class="mb-4">
-                        <div class="flex flex-wrap gap-y-2">
-                            @foreach ($facilities as $facility)
-                                <label class="inline-flex items-center mr-4 mb-2 w-1/2 md:w-1/4">
-                                    <input type="checkbox" class="facility-checkbox text-red-600"
-                                        value="{{ $facility->id }}">
-                                    <span
-                                        class="ml-1 text-sm text-gray-800 dark:text-white">{{ $facility->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                    <button class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        onclick="closeModal('modal-fasilitas')">Close</button>
-                </div>
-            </div>
-
-            <div id="modal-aturan"
-                class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-8 rounded-lg">
-                    <h2 class="text-xl font-semibold mb-4">Aturan Kos Modal</h2>
-                    <p>This is the content for the Aturan Kos tab.</p>
-                    <button class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        onclick="closeModal('modal-aturan')">Close</button>
-                </div>
-            </div>
-
-            <div id="modal-kamar"
-                class="hidden fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-8 rounded-lg">
-                    <h2 class="text-xl font-semibold mb-4">Kamar Tersedia Modal</h2>
-                    <p>This is the content for the Kamar Tersedia tab.</p>
-                    <button class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        onclick="closeModal('modal-kamar')">Close</button>
-                </div>
-            </div>
-
-            <script>
-                // Open the modal
-                function openModalId(modalId) {
-                    document.getElementById(modalId).classList.remove('hidden');
-                }
-
-                // Close the modal
-                function closeModal(modalId) {
-                    document.getElementById(modalId).classList.add('hidden');
-                }
-
-                // Add event listeners to buttons
-                document.getElementById('bulanan-btn').addEventListener('click', () => openModalId('modal-bulanan'));
-                document.getElementById('harga-btn').addEventListener('click', () => openModalId('modal-harga'));
-                document.getElementById('fasilitas-btn').addEventListener('click', () => openModalId('modal-fasilitas'));
-                document.getElementById('aturan-btn').addEventListener('click', () => openModalId('modal-aturan'));
-                document.getElementById('kamar-btn').addEventListener('click', () => openModalId('modal-kamar'));
-            </script> --}}
-
+    <section class="bg-white dark:bg-gray-900 py-4 pt-5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- FILTER FASILITAS -->
-            <div id="facility-filters" class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-2">Filter Fasilitas</h2>
-                @foreach ($facilities as $facility)
-                    <label class="inline-flex items-center mr-4">
-                        <input type="checkbox" class="facility-checkbox text-red-600" value="{{ $facility->id }}">
-                        <span class="ml-1 text-sm text-gray-800 dark:text-white">{{ $facility->name }}</span>
-                    </label>
-                @endforeach
-            </div>
-
-            <div id="area-filters" class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-2">Filter Fasilitas</h2>
-                @foreach ($locations as $location)
-                    <label class="inline-flex items-center mr-4">
-                        <input type="checkbox" class="area-checkbox text-red-600" value="{{ $location->id }}">
-                        <span class="ml-1 text-sm text-gray-800 dark:text-white">{{ $location->name }}</span>
-                    </label>
-                @endforeach
-            </div>
-
-            <!-- FILTER TYPE MANUAL -->
             <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-2">Filter Tipe Kamar</h2>
-                <select id="type-filter" class="border rounded p-2">
-                    <option value="">Semua Tipe</option>
-                    <option value="putri">Putri</option>
-                    <option value="Putra">Putra</option>
-                    <option value="Campur">Campur</option>
-                </select>
+                <form action="" method="GET">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="location-search" name="location"
+                            class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Cari lokasi..." required>
+                    </div>
+                </form>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+                <!-- Filter Fasilitas -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Fasilitas</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        @foreach ($facilities as $facility)
+                            <label class="inline-flex items-center">
+                                <input type="checkbox"
+                                    class="facility-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    value="{{ $facility->id }}">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $facility->name }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Filter Area -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Area sekitar</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        @foreach ($locations as $location)
+                            <label class="inline-flex items-center">
+                                <input type="checkbox"
+                                    class="area-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    value="{{ $location->id }}">
+                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $location->name }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Filter Tipe Kamar -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Filter Tipe Kamar</h2>
+                    <select id="type-filter"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="">Semua Tipe</option>
+                        <option value="putri">Putri</option>
+                        <option value="Putra">Putra</option>
+                        <option value="Campur">Campur</option>
+                    </select>
+                </div>
             </div>
 
-
+            <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Semua Kamar</div>
             <!-- LIST KAMAR -->
-            <div id="room-list" class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div id="room-list" class="pt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
                 @foreach ($rooms as $room)
                     <div class="room-card bg-white rounded shadow dark:bg-gray-800"
                         data-facilities="{{ $room->facilities->pluck('id')->implode(',') }}"
@@ -237,7 +160,7 @@
                     const typeMatch = selectedType === '' || selectedType === roomType;
                     const areaMatch = selectedArea.every(f => area.includes(f));
 
-                   // card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
+                    // card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
                     card.style.display = facilityMatch && typeMatch && areaMatch ? '' : 'none';
                 });
             }

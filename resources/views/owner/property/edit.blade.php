@@ -122,6 +122,36 @@
                             placeholder="contoh (Turmuzi, Jl. H. Badruddin, Bagu, Praya, Central Lombok Regency, West Nusa Tenggara 83371)"
                             value="{{ old('address', $property->address) }}" required />
                     </div>
+
+
+                    <div class="mb-6">
+                        <label for="address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten/kota</label>
+                        <input type="text" id="kabupaten" name="kabupaten"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="Lombok Barat"
+                            value="{{ old('kabupaten', $property->kabupaten) }}" required />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                        <input type="text" id="kecamatan" name="kecamatan"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="contoh ()"
+                            value="{{ old('kecamatan', $property->kecamatan) }}" required />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Desa/dusun</label>
+                        <input type="text" id="desa" name="desa"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="contoh ()"
+                            value="{{ old('desa', $property->desa) }}" required />
+                    </div>
+
+
                     <div class="mb-6">
                         <label for="city"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>

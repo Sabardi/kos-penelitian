@@ -31,8 +31,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- FILTER FASILITAS -->
             <div class="mb-4">
-                <form action="" method="GET">
-                    <div class="relative">
+                <form action="{{ route('home') }}" method="GET">
+                    <div class="relative flex items-center">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -41,92 +41,97 @@
                             </svg>
                         </div>
                         <input type="search" id="location-search" name="location"
-                            class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Cari lokasi..." required>
+                            class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            value="{{$request->location}}" placeholder="Cari lokasi...">
+                        <button type="submit"
+                            class="p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Cari
+                        </button>
                     </div>
-                </form>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
-                <!-- Filter Fasilitas -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Fasilitas</h2>
-                    <div class="grid grid-cols-2 gap-3">
-                        @foreach ($facilities as $facility)
-                            <label class="inline-flex items-center">
-                                <input type="checkbox"
-                                    class="facility-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-                                    value="{{ $facility->id }}">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $facility->name }}</span>
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Filter Area -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Area sekitar</h2>
-                    <div class="grid grid-cols-2 gap-3">
-                        @foreach ($locations as $location)
-                            <label class="inline-flex items-center">
-                                <input type="checkbox"
-                                    class="area-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-                                    value="{{ $location->id }}">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $location->name }}</span>
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Filter Tipe Kamar -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                    <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Filter Tipe Kamar</h2>
-                    <select id="type-filter"
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <option value="">Semua Tipe</option>
-                        <option value="putri">Putri</option>
-                        <option value="Putra">Putra</option>
-                        <option value="Campur">Campur</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Semua Kamar</div>
-            <!-- LIST KAMAR -->
-            <div id="room-list" class="pt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                @foreach ($rooms as $room)
-                    <div class="room-card bg-white rounded shadow dark:bg-gray-800"
-                        data-facilities="{{ $room->facilities->pluck('id')->implode(',') }}"
-                        data-type-kos="{{ $room->property->type }}"
-                        data-regency="{{ $room->property->locations->pluck('id')->implode(',') }}">
-                        <a href="{{ route('front.detail', [$room, $room->slug]) }}" target="_blank">
-                            <img src="{{ Storage::url($room->foto_room) }}" alt="{{ $room->name }}"
-                                class="w-full h-48 object-cover rounded-t" />
-                        </a>
-                        <div class="p-4">
-                            <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $room->name }}</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ $room->property->regency }}</p>
-
-                            <div class="mt-2 flex flex-wrap gap-1">
-                                @foreach ($room->facilities as $facility)
-                                    <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
-                                        {{ $facility->name }}
-                                    </span>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 pt-4">
+                        <!-- Filter Fasilitas -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                            <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Fasilitas</h2>
+                            <div class="grid grid-cols-2 gap-3">
+                                @foreach ($facilities as $facility)
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox"
+                                            class="facility-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                            value="{{ $facility->id }}">
+                                        <span
+                                            class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $facility->name }}</span>
+                                    </label>
                                 @endforeach
                             </div>
-
-                            <p class="mt-2 text-red-500 font-bold text-lg">
-                                Rp.{{ number_format($room->price, 0, ',', '.') }} /
-                                {{ $room->property->time_period }}
-                            </p>
-                            {{ $room->property->type }}
-
-                            data-regency="{{ $room->property->locations->pluck('name')->implode(',') }}"
-
                         </div>
-                    </div>
-                @endforeach
+
+                        <!-- Filter Area -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                            <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Area sekitar</h2>
+                            <div class="grid grid-cols-2 gap-3">
+                                @foreach ($locations as $location)
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox"
+                                            class="area-checkbox w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                            value="{{ $location->id }}">
+                                        <span
+                                            class="ml-2 text-sm text-gray-700 dark:text-gray-200">{{ $location->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Filter Tipe Kamar -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                            <h2 class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Filter Tipe Kamar</h2>
+                            <select id="type-filter"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Semua Tipe</option>
+                                <option value="putri">Putri</option>
+                                <option value="Putra">Putra</option>
+                                <option value="Campur">Campur</option>
+                            </select>
+                        </div>
+                </form>
             </div>
+        </div>
+
+        <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Semua Kamar</div>
+        <!-- LIST KAMAR -->
+        <div id="room-list" class="pt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            @foreach ($rooms as $room)
+                <div class="room-card bg-white rounded shadow dark:bg-gray-800"
+                    data-facilities="{{ $room->facilities->pluck('id')->implode(',') }}"
+                    data-type-kos="{{ $room->property->type }}"
+                    data-regency="{{ $room->property->locations->pluck('id')->implode(',') }}">
+                    <a href="{{ route('front.detail', [$room, $room->slug]) }}" target="_blank">
+                        <img src="{{ Storage::url($room->foto_room) }}" alt="{{ $room->name }}"
+                            class="w-full h-48 object-cover rounded-t" />
+                    </a>
+                    <div class="p-4">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $room->name }}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ $room->property->regency }}</p>
+
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            @foreach ($room->facilities as $facility)
+                                <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
+                                    {{ $facility->name }}
+                                </span>
+                            @endforeach
+                        </div>
+
+                        <p class="mt-2 text-red-500 font-bold text-lg">
+                            Rp.{{ number_format($room->price, 0, ',', '.') }} /
+                            {{ $room->property->time_period }}
+                        </p>
+                        {{ $room->property->type }}
+
+                        data-regency="{{ $room->property->locations->pluck('name')->implode(',') }}"
+
+                    </div>
+                </div>
+            @endforeach
+        </div>
 
         </div>
     </section>

@@ -17,30 +17,30 @@ class FronController extends Controller
 {
     public function index(Request $request)
     {
-        // if($request->has('keyword')) {
-        //     $keyword = $request->input('keyword');
-        //     return $keyword;
-        //     // return redirect()->route('search', ['keyword' => $keyword]);
-        // }
         // return $request;
+        if ($request->has('location')) {
+            $location = $request->input('location');
+            $rooms = Room::with(['reviews', 'property', 'facilities'])
+                ->whereHas('property', function ($query) use ($location) {
+                    $query->where('kabupaten', 'like', '%' . $location . '%')
+                        ->orWhere('kecamatan', 'like', '%' . $location . '%')
+                        ->orWhere('desa', 'like', '%' . $location . '%');
+                })
+                ->where('availability', true)
+                ->get();
+        } else {
+            $rooms = Room::with(['reviews', 'property', 'facilities'])
+                ->where('availability', true)
+                ->get();
+        }
+
+
         $userId = Auth::id();
-
-
-        // Ambil semua kamar 
-
-        // Ambil pengguna yang paling mirip
-        $topUsers = $this->getUserSimilarities($userId);
-        $currentUserVector = $this->getCurrentUserVector($userId);
-
-        // Ambil rekomendasi kamar
-        $recommendedRooms = $this->getRecommendedRooms($topUsers, $currentUserVector)
-            ->loadAvg('reviews', 'rating');
-
         // Ambil semua kamar yang tersedia dengan rating
-        $rooms = Room::with(['reviews', 'property', 'facilities'])
-            ->withAvg('reviews', 'rating')
-            ->where('availability', true)
-            ->get();
+        // $rooms = Room::with(['reviews', 'property', 'facilities'])
+        //     ->withAvg('reviews', 'rating')
+        //     ->where('availability', true)
+        //     ->get();
 
         // cek apakah user dengan role tenant sudah memiliki reference, jika belum arahkan ke view create reference
         if (Auth::check() && Auth::user()->role === 'tenant' && !Auth::user()->reference()->exists()) {
@@ -51,7 +51,7 @@ class FronController extends Controller
         $locations = Location::all();
 
         // return $rooms;
-        return view('welcome', compact('rooms', 'facilities', 'locations'));
+        return view('welcome', compact('rooms', 'facilities', 'locations', 'request'));
         // return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 

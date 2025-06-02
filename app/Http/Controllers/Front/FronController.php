@@ -28,12 +28,14 @@ class FronController extends Controller
                 })
                 ->where('availability', true)
                 ->get();
+
         } else {
             $rooms = Room::with(['reviews', 'property', 'facilities'])
                 ->where('availability', true)
                 ->get();
         }
 
+  
 
         $userId = Auth::id();
         // Ambil semua kamar yang tersedia dengan rating

@@ -42,7 +42,7 @@
                         </div>
                         <input type="search" id="location-search" name="location"
                             class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{$request->location}}" placeholder="Cari lokasi...">
+                            value="{{ $request->location }}" placeholder="Cari lokasi...">
                         <button type="submit"
                             class="p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Cari
@@ -96,10 +96,16 @@
             </div>
         </div>
 
+        
+        {{-- @if ($rooms->count() > 0)       
+        <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">
+            <p>Total Kamar: {{ $rooms->count() }}</p>
+        </div>
+        @endif --}}
         <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Semua Kamar</div>
         <!-- LIST KAMAR -->
         <div id="room-list" class="pt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            @foreach ($rooms as $room)
+            @forelse ($rooms as $room)
                 <div class="room-card bg-white rounded shadow dark:bg-gray-800"
                     data-facilities="{{ $room->facilities->pluck('id')->implode(',') }}"
                     data-type-kos="{{ $room->property->type }}"
@@ -110,7 +116,14 @@
                     </a>
                     <div class="p-4">
                         <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $room->name }}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ $room->property->regency }}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 flex justify-between items-center">
+                            <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
+                                {{ $room->property->regency }}
+                            </span>
+                            <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
+                                {{ $room->property->type }}
+                            </span>
+                        </p>
 
                         <div class="mt-2 flex flex-wrap gap-1">
                             @foreach ($room->facilities as $facility)
@@ -124,13 +137,19 @@
                             Rp.{{ number_format($room->price, 0, ',', '.') }} /
                             {{ $room->property->time_period }}
                         </p>
-                        {{ $room->property->type }}
 
-                        data-regency="{{ $room->property->locations->pluck('name')->implode(',') }}"
-
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
+                                {{ $room->property->locations->pluck('name')->implode(',') }}
+                            </span>
+                        </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="text-center text-gray-500">
+                    <p>Tidak ada kamar yang ditemukan</p>
+                </div>
+            @endforelse
         </div>
 
         </div>

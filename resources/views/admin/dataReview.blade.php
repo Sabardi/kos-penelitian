@@ -21,7 +21,7 @@
                                     <tbody>
                                         @foreach ($rooms as $room)
                                             <tr>
-                                                <td>{{ $room->name }}</td>
+                                                <td>room_{{ $room->id }}</td>
                                                 @foreach ($users as $user)
                                                     <td>
                                                         {{-- Cek apakah ada rating untuk kombinasi room dan user ini --}}

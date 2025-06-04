@@ -27,5 +27,5 @@ Route::middleware(['auth', 'role:tenant'])->group(function () {
     Route::get('/create/reference', [UserReperenceController::class, 'createReference'])->name('create.reference');
 Route::post('reference/store', [UserReperenceController::class, 'store'])->name('reference.store');
 
-Route::get('/reference', [UserReperenceController::class, 'index'])->name('reference.index');
+// Route::get('/reference', [UserReperenceController::class, 'index'])->name('reference.index');
 });

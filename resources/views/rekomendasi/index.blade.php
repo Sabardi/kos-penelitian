@@ -28,7 +28,7 @@
                 <!-- Card 1 -->
                 @forelse ($rekomendasi as $item)
                     <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
-                        <a href="" target="_blank">
+                        <a href="{{ route('front.detail', [$item['room_id'], $item['room_id']->slug] ) }}" target="_blank">
                             <img alt="Room with a bed and a desk" class="object-cover w-full h-48" height="400"
                                 src="{{ Storage::url($item['room_id']->foto_room) }}" width="600" />
                         </a>

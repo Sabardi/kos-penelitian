@@ -36,7 +36,7 @@ class FronController extends Controller
         }
 
   
-
+// jika menggunakan user refrency untuk user
         $userId = Auth::id();
         // Ambil semua kamar yang tersedia dengan rating
         // $rooms = Room::with(['reviews', 'property', 'facilities'])
@@ -45,9 +45,9 @@ class FronController extends Controller
         //     ->get();
 
         // cek apakah user dengan role tenant sudah memiliki reference, jika belum arahkan ke view create reference
-        if (Auth::check() && Auth::user()->role === 'tenant' && !Auth::user()->reference()->exists()) {
-            return redirect()->route('create.reference');
-        }
+        // if (Auth::check() && Auth::user()->role === 'tenant' && !Auth::user()->reference()->exists()) {
+        //     return redirect()->route('create.reference');
+        // }
 
         $facilities = Facility::all();
         $locations = Location::all();

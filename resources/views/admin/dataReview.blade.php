@@ -9,30 +9,24 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-
-                                <table class="table table-bordered">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Cosine</th> {{-- Label untuk pojok kiri atas --}}
-                                            @foreach ($uniqueUsers as $user)
-                                                {{-- Asumsi model User memiliki atribut 'name' untuk ditampilkan --}}
+                                            <th>Room</th> {{-- Atau ganti dengan "cosin" jika ingin persis seperti gambar --}}
+                                            @foreach ($users as $user)
                                                 <th>{{ $user->id }}</th>
                                             @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($uniqueUsers as $rowUser)
+                                        @foreach ($rooms as $room)
                                             <tr>
-                                                {{-- Tampilkan nama pengguna sebagai header baris --}}
-                                                <td>{{ $rowUser->id }}</td>
-                                                @foreach ($uniqueUsers as $colUser)
+                                                <td>{{ $room->name }}</td>
+                                                @foreach ($users as $user)
                                                     <td>
-                                                        {{-- Ambil skor dari matriks menggunakan ID pengguna --}}
-                                                        @if (isset($similarityMatrix[$rowUser->id][$colUser->id]))
-                                                            {{ number_format($similarityMatrix[$rowUser->id][$colUser->id], 2) }}
-                                                        @else
-                                                            - {{-- Tampilkan strip jika tidak ada data (seharusnya jarang terjadi jika data lengkap) --}}
-                                                        @endif
+                                                        {{-- Cek apakah ada rating untuk kombinasi room dan user ini --}}
+                                                        {{ $ratingsLookup[$room->id][$user->id] ?? '-' }}
+                                                        {{-- '?? '-' akan menampilkan '-' jika tidak ada rating. Ganti dengan '' jika ingin kosong. --}}
                                                     </td>
                                                 @endforeach
                                             </tr>

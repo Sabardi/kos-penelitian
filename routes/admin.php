@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AllRoomController;
+use App\Http\Controllers\Admin\ColaboratifFilteringController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilyController;
 use App\Http\Controllers\Admin\LocationController;
@@ -24,5 +25,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/booking', [AllRoomController::class, 'allbooking'])->name('all.booking');
 
 
-    
+    Route::get('/colaboratif-filtering', [ColaboratifFilteringController::class, 'index'])->name('colaboratif.filtering');
+    Route::get('/similarity', [ColaboratifFilteringController::class, 'similarity'])->name('colaboratif.filtering.similarity');
 });

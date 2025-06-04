@@ -15,7 +15,8 @@
                     class="inline-flex items-center px-5 py-3 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 </a> --}}
                 @guest
-                    <a href="{{ route('login') }}">
+                    {{-- <a href="{{ route('login') }}"> --}}
+                    <a href="#">
                         <button id="openModal"
                             class="inline-flex items-center px-5 py-3 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                             Masuk / Daftar
@@ -147,7 +148,7 @@
                 </div>
             @empty
                 <div class="text-center text-gray-500">
-                    <p>Tidak ada kamar yang ditemukan</p>
+                    <p>Tidak ada mitra kos di area {{ $request->location }}</p>
                 </div>
             @endforelse
         </div>

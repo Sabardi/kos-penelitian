@@ -17,8 +17,8 @@ class AllRoomController extends Controller
 
     public function allrooms()
     {
-        $allrooms = Room::all();
-        return view('admin.room.allroom', compact('allrooms'));
+        $rooms = Room::with('property', 'facilities')->paginate(10);
+        return view('admin.room.allroom', compact('rooms'));
     }
     public function index($property)
     {

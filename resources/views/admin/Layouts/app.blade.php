@@ -362,6 +362,23 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#booking-review"
+                            aria-expanded="false" aria-controls="booking-review">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">Booking dan review</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="booking-review">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('all.booking.user') }}">Data booking</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('all.review') }}">Data review User</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#Management-Kos" aria-expanded="false"
                             aria-controls="Management-Kos">
                             <i class="icon-grid-2 menu-icon"></i>

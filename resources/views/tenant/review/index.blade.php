@@ -50,7 +50,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="mt-1 text-sm text-red-500">Silakan pilih
-                                                                    rating.</div>
+                                                                    rating. 7</div>
                                                             </div>
                                                             <div class="mb-6">
                                                                 <label for="review"

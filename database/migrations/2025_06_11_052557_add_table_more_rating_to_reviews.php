@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reviews', function (Blueprint $table) {
-             $table->integer('rating_accuracy_condition')->nullable();
+            $table->integer('rating_accuracy_condition')->nullable();
             $table->integer('rating_facilities')->nullable();
             $table->integer('rating_price')->nullable();
             $table->integer('rating_rules_flexibility')->nullable();

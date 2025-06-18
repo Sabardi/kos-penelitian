@@ -67,7 +67,7 @@ class RateController extends Controller
             $interaction->save();
         }
 
-        return redirect(route('front.pesanan'))->with('success', 'Terimakasih sudah memberikan rating!');
+        return redirect(route('review.success'))->with('success', 'Terimakasih sudah memberikan rating!');
     }
     /**
      * Update the specified resource in storage.

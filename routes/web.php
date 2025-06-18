@@ -32,6 +32,11 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/rekomendasi', [RekomendasiController::class, 'index'])->name('rekomendasi');
 Route::get('/rekomendasi/room', [RekomendasiController::class, 'recommendItemBased'])->name('recommend.ItemBased');
+
+Route::get('/review/success', function () {
+    return view('tenant.review.success');
+})->name('review.success');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/owner.php';

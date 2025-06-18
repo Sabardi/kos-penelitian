@@ -5,11 +5,90 @@
     <section class="py-8 antialiased bg-white md:py-16 dark:bg-gray-900">
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
             <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                <div class="max-w-md mx-auto shrink-0 lg:max-w-lg">
-                    <img class="w-full rounded-lg shadow-lg dark:hidden" src="{{ Storage::url($room->foto_room) }}"
-                        alt="{{ $room->name }}" />
-                    <img class="hidden w-full rounded-lg shadow-lg dark:block" src="{{ Storage::url($room->foto_room) }}"
-                        alt="{{ $room->name }}" />
+                <div class="max-w-md mx-auto shrink-0 lg:max-w-lg flex flex-col items-center">
+                    <div class="w-full mb-6">
+                        <img 
+                            class="w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:hidden" 
+                            src="{{ Storage::url($room->foto_room) }}"
+                            alt="{{ $room->name }}" 
+                            style="max-width: 100%; max-height: 16rem;"
+                        />
+                        <img 
+                            class="hidden w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:block" 
+                            src="{{ Storage::url($room->foto_room) }}"
+                            alt="{{ $room->name }}" 
+                            style="max-width: 100%; max-height: 16rem;"
+                        />
+                    </div>
+                    <div class="w-full bg-white dark:bg-gray-800 rounded-xl shadow p-4 mt-2 flex flex-col items-center">
+                        {{-- <div class="flex items-center mb-2">
+                            <span class="text-lg font-semibold text-gray-700 dark:text-gray-200 mr-2">Overall Rating:</span>
+                            @for ($i = 0; $i < 5; $i++)
+                                <svg class="w-5 h-5 {{ $i < $room->average_rating ? 'text-yellow-400' : 'text-gray-300' }}"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                </svg>
+                            @endfor
+                            <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                                {{ number_format($room->average_rating, 1) }} / 5
+                            </span>
+                        </div> --}}
+                        <div class="w-full mt-2">
+                            <div class="flex items-center mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Accuracy & Condition:</span>
+                                @for ($i = 0; $i < 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_accuracy_condition ? 'text-yellow-400' : 'text-gray-300' }}"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                    </svg>
+                                @endfor
+                                <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                                    {{ number_format($room->average_rating_accuracy_condition, 1) ?? '-' }} / 5
+                                </span>
+                            </div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Facilities:</span>
+                                @for ($i = 0; $i < 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_facilities ? 'text-yellow-400' : 'text-gray-300' }}"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                    </svg>
+                                @endfor
+                                <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                                    {{ number_format($room->average_rating_facilities, 1) ?? '-' }} / 5
+                                </span>
+                            </div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Price:</span>
+                                @for ($i = 0; $i < 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_price ? 'text-yellow-400' : 'text-gray-300' }}"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                    </svg>
+                                @endfor
+                                <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                                    {{ number_format($room->average_rating_price, 1) ?? '-' }} / 5
+                                </span>
+                            </div>
+                            <div class="flex items-center mb-1">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Rules Flexibility:</span>
+                                @for ($i = 0; $i < 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_rules_flexibility ? 'text-yellow-400' : 'text-gray-300' }}"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                    </svg>
+                                @endfor
+                                <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                                    {{ number_format($room->average_rating_rules_flexibility, 1) ?? '-' }} / 5
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mt-6 sm:mt-8 lg:mt-0">
@@ -89,13 +168,6 @@
                             @endphp
 
                             @if ($hasBooking && !$hasReview)
-                                {{-- <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}" 
-                                   class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                                    </svg>
-                                    Beri Rating
-                                </a> --}}
                                 <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}">
                                     <button type="button"
                                         class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

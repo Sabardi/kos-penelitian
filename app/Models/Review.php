@@ -13,7 +13,7 @@ class Review extends Model
         'comment',
         'rating',
         'rating_accuracy_condition',
-        'rating_facilities_cleanliness',
+        'rating_facilities',
         'rating_price',
         'rating_rules_flexibility',
     ];

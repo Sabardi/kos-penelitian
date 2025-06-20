@@ -34,57 +34,66 @@
                                 {{ number_format($room->average_rating, 1) }} / 5
                             </span>
                         </div> --}}
+                     
+
+                        @php
+                            $avgAccuracyCondition = isset($averageRatings['accuracy_condition']) ? $averageRatings['accuracy_condition'] : 0;
+                            $avgFacilities = isset($averageRatings['facilities']) ? $averageRatings['facilities'] : 0;
+                            $avgPrice = isset($averageRatings['price']) ? $averageRatings['price'] : 0;
+                            $avgRulesFlexibility = isset($averageRatings['rules_flexibility']) ? $averageRatings['rules_flexibility'] : 0;
+                        @endphp
+
                         <div class="w-full mt-2">
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Accuracy & Condition:</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Akurasi Kamar :</span>
                                 @for ($i = 0; $i < 5; $i++)
-                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_accuracy_condition ? 'text-yellow-400' : 'text-gray-300' }}"
+                                    <svg class="w-4 h-4 {{ $i < $avgAccuracyCondition ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
                                         <path
                                             d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
                                     </svg>
                                 @endfor
                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                                    {{ number_format($room->average_rating_accuracy_condition, 1) ?? '-' }} / 5
+                                    {{ number_format($avgAccuracyCondition, 1) ?? '-' }} / 5
                                 </span>
                             </div>
                             <div class="flex items-center mb-1">
                                 <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Facilities:</span>
                                 @for ($i = 0; $i < 5; $i++)
-                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_facilities ? 'text-yellow-400' : 'text-gray-300' }}"
+                                    <svg class="w-4 h-4 {{ $i < $avgFacilities ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
                                         <path
                                             d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
                                     </svg>
                                 @endfor
                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                                    {{ number_format($room->average_rating_facilities, 1) ?? '-' }} / 5
+                                    {{ number_format($avgFacilities, 1) ?? '-' }} / 5
                                 </span>
                             </div>
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Price:</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Harga :</span>
                                 @for ($i = 0; $i < 5; $i++)
-                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_price ? 'text-yellow-400' : 'text-gray-300' }}"
+                                    <svg class="w-4 h-4 {{ $i < $avgPrice ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
                                         <path
                                             d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
                                     </svg>
                                 @endfor
                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                                    {{ number_format($room->average_rating_price, 1) ?? '-' }} / 5
+                                    {{ number_format($avgPrice, 1) ?? '-' }} / 5
                                 </span>
                             </div>
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Rules Flexibility:</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">aturan kos:</span>
                                 @for ($i = 0; $i < 5; $i++)
-                                    <svg class="w-4 h-4 {{ $i < $room->average_rating_rules_flexibility ? 'text-yellow-400' : 'text-gray-300' }}"
+                                    <svg class="w-4 h-4 {{ $i < $avgRulesFlexibility ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
                                         <path
                                             d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
                                     </svg>
                                 @endfor
                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">
-                                    {{ number_format($room->average_rating_rules_flexibility, 1) ?? '-' }} / 5
+                                    {{ number_format($avgRulesFlexibility, 1) ?? '-' }} / 5
                                 </span>
                             </div>
                         </div>
@@ -162,12 +171,19 @@
                         </a>
 
                         @auth
-                            @php
-                                $hasBooking = auth()->user()->bookings()->where('room_id', $room->id)->exists();
-                                $hasReview = auth()->user()->reviews()->where('room_id', $room->id)->exists();
-                            @endphp
 
-                            @if ($hasBooking && !$hasReview)
+                        @if ($isRatingRequired && $room->id != optional($lastBooking)->room_id)
+    <a href="{{ route('front.pesanan.rating', [$lastBooking->room->id, $lastBooking->room->slug]) }}">
+        <button type="button" class="...">Beri Rating Kamar Sebelumnya</button>
+    </a>
+@else
+    <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}">
+        <button type="button" class="...">Pesan Kamar</button>
+    </a>
+@endif
+
+                       
+                            {{-- @if ()
                                 <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}">
                                     <button type="button"
                                         class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -190,7 +206,7 @@
                                     </svg>
                                     Pesan Kamar
                                 </button>
-                            @endif
+                            @endif --}}
 
                             <!-- Modal -->
                             <div id="middle-center-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">

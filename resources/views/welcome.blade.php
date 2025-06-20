@@ -97,12 +97,76 @@
             </div>
         </div>
 
-        
+
         {{-- @if ($rooms->count() > 0)       
         <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">
             <p>Total Kamar: {{ $rooms->count() }}</p>
         </div>
         @endif --}}
+
+
+        <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Rekomendasi Kamar</div>
+        @if (count($rekomendasi) > 0)
+            <section class="bg-white dark:bg-gray-900">
+                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                        <!-- Card 1 -->
+                        @forelse ($rekomendasi as $item)
+                            <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                                <a href="{{ route('front.detail', [$item['room_id'], $item['room_id']->slug]) }}"
+                                    target="_blank">
+                                    <img alt="Room with a bed and a desk" class="object-cover w-full h-48"
+                                        height="400" src="{{ Storage::url($item['room_id']->foto_room) }}"
+                                        width="600" />
+                                </a>
+                                <div class="p-4">
+                                    <div class="flex items-center mt-2">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                                            <i class="mr-1 fas fa-eye"></i>{{ $item['room_id']->count_visitor }} views
+                                        </span>
+                                        <span class="ml-4 text-sm text-gray-500 dark:text-gray-400">
+                                            <i
+                                                class="mr-1 fas fa-star"></i>{{ number_format($item['room_id']->rating, 1) }}
+                                            rating
+                                        </span>
+                                    </div>
+                                    <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                                        {{ $item['room_id']->property->name }}-{{ $item['room_id']->name }}
+                                    </h3>
+                                    <p class="text-base text-gray-600 dark:text-gray-400">
+                                        {{ $item['room_id']->property->regency }}
+                                    </p>
+                                    <div class="flex items-center mt-2">
+                                        <i class="mr-1 text-gray-500 fas fa-map-marker-alt"></i>
+                                        <div class="flex flex-wrap gap-2">
+                                            @foreach ($item['room_id']->facilities->take(3) as $facility)
+                                                <span class="text-xs border badge bg-light text-dark">
+                                                    <i class="me-1"></i>{{ $facility->name }}
+                                                </span>
+                                            @endforeach
+                                            <span class="text-xs border badge bg-light text-dark">
+                                                <i class="me-1"></i>+ {{ $item['room_id']->facilities->count() - 3 }}
+                                                more
+                                            </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-lg font-bold text-red-500">
+                                        Rp{{ number_format($item['room_id']->price, 0, ',', '.') }} /bulan
+                                    </p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+                                silahkah melakukan pemesanan terlebih dahulu untuk melihat rekomendasi kamu
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </section>
+        @endif
         <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Semua Kamar</div>
         <!-- LIST KAMAR -->
         <div id="room-list" class="pt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -117,6 +181,25 @@
                     </a>
                     <div class="p-4">
                         <h3 class="text-base font-semibold text-gray-900 dark:text-white">{{ $room->name }}</h3>
+
+
+                        <div class="flex justify-end items-center space-x-1">
+                            <span class="flex items-center">
+                                @for ($i = 0; $i < 5; $i++)
+                                    <svg class="w-4 h-4 {{ $i < $room->average_rating ? 'text-yellow-400' : 'text-gray-300' }}"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" />
+                                    </svg>
+                                @endfor
+                            </span>
+
+                            <span class="text-sm text-yellow-500 font-semibold">
+                                {{ number_format($room->average_rating, 1) ?? '0.0' }}/5
+                            </span>
+                        </div>
+
+
                         <p class="text-sm text-gray-600 dark:text-gray-400 flex justify-between items-center">
                             <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
                                 {{ $room->property->regency }}

@@ -11,7 +11,8 @@ Route::get('/', [FronController::class, 'index'])->name('home');
 Route::get('/semua-kamar-kos', [FronController::class, 'allroom'])->name('semua-kamar-kos');
 Route::get('/rekomendasi-kamar-kos', [FronController::class, 'allrecommendedRoom'])->name('rekomendasi-kamar-kos');
 
-Route::get('/room/{room}/{slug}', [FronController::class, 'show'])->name('front.detail');
+Route::get('/room/{room}/{slug}', [FronController::class, 's
+how'])->name('front.detail');
 
 Route::get('/about', function () {
     return view('about');

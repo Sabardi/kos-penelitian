@@ -47,8 +47,13 @@ class RateController extends Controller
         $validated = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:255',
-        ]);
+            'rating_accuracy_condition' => 'nullable|integer|min:1|max:5',
+            'rating_facilities' => 'nullable|integer|min:1|max:5',
+            'rating_price' => 'nullable|integer|min:1|max:5',
+            'rating_rules_flexibility' => 'nullable|integer|min:1|max:5',
 
+        ]);
+        
         $validated['booking_id'] = $booking;
         $validated['user_id'] = Auth::id();
         $validated['room_id'] = $room;

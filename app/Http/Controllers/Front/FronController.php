@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Facility;
 use App\Models\Location;
 use App\Models\Review;
 use App\Models\Room;
+use App\Models\Similarity;
 use App\Models\UserPreference;
 use App\Models\UserRoomInteractions;
 use Illuminate\Http\Request;
@@ -28,32 +30,106 @@ class FronController extends Controller
                 })
                 ->where('availability', true)
                 ->get();
-
         } else {
             $rooms = Room::with(['reviews', 'property', 'facilities'])
                 ->where('availability', true)
                 ->get();
         }
 
-  
-// jika menggunakan user refrency untuk user
-        $userId = Auth::id();
-        // Ambil semua kamar yang tersedia dengan rating
-        // $rooms = Room::with(['reviews', 'property', 'facilities'])
-        //     ->withAvg('reviews', 'rating')
-        //     ->where('availability', true)
-        //     ->get();
 
-        // cek apakah user dengan role tenant sudah memiliki reference, jika belum arahkan ke view create reference
-        // if (Auth::check() && Auth::user()->role === 'tenant' && !Auth::user()->reference()->exists()) {
-        //     return redirect()->route('create.reference');
-        // }
+        // Jika user belum login, tampilkan semua room (sudah diambil di atas)
+        // Jika user sudah login, tampilkan rekomendasi
+        $final = [];
+        $similarUsers = [];
+        $user = Auth::user();
+        if ($user) {
+            // Ambil rating kamar yang sudah diberikan oleh user ini
+            // Format: [room_id => rating]
+            $userRatings = Review::where('user_id', $user->id)->pluck('rating', 'room_id');
+
+            // Ambil daftar user yang mirip dengan user ini dari tabel similarity
+            // Disusun dari yang paling mirip ke yang paling tidak
+            $similarUsers = Similarity::where('user_id_1', $user->id)
+                ->orWhere('user_id_2', $user->id)
+                ->orderByDesc('similarity')
+                ->get();
+
+            // Array untuk menyimpan skor prediksi rating kamar
+            $rekomendasi = [];
+
+            // Proses menghitung prediksi rating kamar berdasarkan user yang mirip
+            foreach ($similarUsers as $sim) {
+                // Tentukan user pembanding (bukan user yang sedang login)
+                $otherId = $sim->user_id_1 == $user->id ? $sim->user_id_2 : $sim->user_id_1;
+
+                // Ambil semua rating dari user pembanding
+                $otherRatings = Review::where('user_id', $otherId)->get();
+
+                foreach ($otherRatings as $rating) {
+                    // Jika user aktif belum pernah menilai kamar ini
+                    if (!isset($userRatings[$rating->room_id])) {
+                        // Inisialisasi data jika belum ada
+                        if (!isset($rekomendasi[$rating->room_id])) {
+                            $rekomendasi[$rating->room_id] = [
+                                'score' => 0,
+                                'totalSim' => 0
+                            ];
+                        }
+
+                        // Hitung skor prediksi menggunakan rumus:
+                        // rating_user_lain * similarity
+                        $rekomendasi[$rating->room_id]['score'] += $rating->rating * $sim->similarity;
+                        $rekomendasi[$rating->room_id]['totalSim'] += $sim->similarity;
+                    }
+                }
+            }
+
+            // Hitung prediksi akhir (rata-rata tertimbang)
+            foreach ($rekomendasi as $room_id => $data) {
+                // Cegah pembagian nol
+                if ($data['totalSim'] > 0) {
+                    $predicted = $data['score'] / $data['totalSim'];
+
+                    // Ambil data kamar dari database
+                    $room = Room::find($room_id);
+                    if ($room) {
+                        $final[] = [
+                            'room_id' => $room, // objek Room, bukan hanya ID
+                            'score' => round($predicted, 2) // Bulatkan skor prediksi
+                        ];
+                    }
+                }
+            }
+
+            // Urutkan hasil rekomendasi berdasarkan skor tertinggi
+            usort($final, fn($a, $b) => $b['score'] <=> $a['score']);
+            $final = array_slice($final, 0, 4); // get 5 data only
+        }
+
+       
+       
+        // Kirim data ke view rekomendasi
+        //  return view('rekomendasi.index', [
+        //      'rekomendasi' => $final,
+        //      'similarUsers' => $similarUsers // juga bisa ditampilkan untuk debugging
+        //  ]);
 
         $facilities = Facility::all();
         $locations = Location::all();
 
         // return $rooms;
-        return view('welcome', compact('rooms', 'facilities', 'locations', 'request'));
+        return view('welcome',
+            [
+                'rooms' => $rooms,
+                'facilities' => $facilities,
+                'locations' => $locations,
+                'request' => $request,
+                'rekomendasi' => $final,
+                'similarUsers' => $similarUsers // juga bisa ditampilkan untuk debugging
+            ]
+
+            // compact('rooms', 'facilities', 'locations', 'request')
+        );
         // return view('welcome', compact('rooms', 'recommendedRooms', 'facilities'));
     }
 
@@ -148,6 +224,30 @@ class FronController extends Controller
     }
 
 
+    // public function show(Room $room)
+    // {
+    //     $cacheKey = 'visited_room_' . $room->id . '_' . request()->ip();
+
+    //     if (!cache()->has($cacheKey)) {
+    //         $room->increment('count_visitor');
+    //         cache()->put($cacheKey, true, now()->addHours(1));
+    //     }
+
+    //     if (Auth::check()) {
+    //         UserRoomInteractions::updateOrCreate(
+    //             ['user_id' => Auth::id(), 'room_id' => $room->id, 'interaction_type' => 'view'],
+    //             ['interaction_value' => DB::raw('interaction_value + 1')]
+    //         );
+    //     }
+
+    //     $reviews = $room->reviews()->with('user')->paginate(5);
+    //     $title = $room->slug;
+
+    //     // return $title;
+    //     return view('detail', compact('room', 'reviews', 'title'));
+    // }
+
+
     public function show(Room $room)
     {
         $cacheKey = 'visited_room_' . $room->id . '_' . request()->ip();
@@ -157,19 +257,45 @@ class FronController extends Controller
             cache()->put($cacheKey, true, now()->addHours(1));
         }
 
+        $isRatingRequired = false;
+        $lastBooking = null;
+
         if (Auth::check()) {
             UserRoomInteractions::updateOrCreate(
                 ['user_id' => Auth::id(), 'room_id' => $room->id, 'interaction_type' => 'view'],
                 ['interaction_value' => DB::raw('interaction_value + 1')]
             );
+
+            $lastBooking = Booking::where('user_id', Auth::id())
+                ->latest()
+                ->first();
+
+            if ($lastBooking && !$lastBooking->room->reviews()->where('user_id', Auth::id())->exists()) {
+                $isRatingRequired = true;
+            }
         }
+
+        $review = $room->reviews;
+
+        $count = $review->count();
+
+        $averageRatings = [
+            'rating' => $count > 0 ? round($review->avg('rating'), 2) : 0,
+            'accuracy_condition' => $count > 0 ? round($review->avg('rating_accuracy_condition'), 2) : 0,
+            'facilities' => $count > 0 ? round($review->avg('rating_facilities'), 2) : 0,
+            'price' => $count > 0 ? round($review->avg('rating_price'), 2) : 0,
+            'rules_flexibility' => $count > 0 ? round($review->avg('rating_rules_flexibility'), 2) : 0,
+        ];
+
+        // return $averageRatings;
+
 
         $reviews = $room->reviews()->with('user')->paginate(5);
         $title = $room->slug;
 
-        // return $title;
-        return view('detail', compact('room', 'reviews', 'title'));
+        return view('detail', compact('room', 'reviews', 'title', 'isRatingRequired', 'lastBooking', 'averageRatings'));
     }
+
 
     public function search(Request $request)
     {

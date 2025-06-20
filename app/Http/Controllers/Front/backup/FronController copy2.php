@@ -149,7 +149,6 @@ class FronController extends Controller
 
         $reviews = $room->reviews()->with('user')->paginate(5);
         $title = $room->slug;
-
         // return $title;
         return view('detail', compact('room', 'reviews', 'title' ));
     }

@@ -105,8 +105,8 @@
         @endif --}}
 
 
-        <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Rekomendasi Kamar</div>
         @if (count($rekomendasi) > 0)
+        <div class="text-lg font-semibold text-gray-700 dark:text-white mb-4">Rekomendasi Kamar</div>
             <section class="bg-white dark:bg-gray-900">
                 <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -222,11 +222,11 @@
                             {{ $room->property->time_period }}
                         </p>
 
-                        <div class="mt-2 flex flex-wrap gap-1">
+                        {{-- <div class="mt-2 flex flex-wrap gap-1">
                             <span class="text-xs bg-gray-200 text-gray-800 px-2 py-1 rounded">
                                 {{ $room->property->locations->pluck('name')->implode(',') }}
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             @empty

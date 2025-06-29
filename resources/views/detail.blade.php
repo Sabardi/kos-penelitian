@@ -7,18 +7,12 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                 <div class="max-w-md mx-auto shrink-0 lg:max-w-lg flex flex-col items-center">
                     <div class="w-full mb-6">
-                        <img 
-                            class="w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:hidden" 
-                            src="{{ Storage::url($room->foto_room) }}"
-                            alt="{{ $room->name }}" 
-                            style="max-width: 100%; max-height: 16rem;"
-                        />
-                        <img 
-                            class="hidden w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:block" 
-                            src="{{ Storage::url($room->foto_room) }}"
-                            alt="{{ $room->name }}" 
-                            style="max-width: 100%; max-height: 16rem;"
-                        />
+                        <img class="w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:hidden"
+                            src="{{ Storage::url($room->foto_room) }}" alt="{{ $room->name }}"
+                            style="max-width: 100%; max-height: 16rem;" />
+                        <img class="hidden w-full h-64 object-cover rounded-2xl shadow-2xl border-4 border-blue-200 dark:border-gray-700 dark:block"
+                            src="{{ Storage::url($room->foto_room) }}" alt="{{ $room->name }}"
+                            style="max-width: 100%; max-height: 16rem;" />
                     </div>
                     <div class="w-full bg-white dark:bg-gray-800 rounded-xl shadow p-4 mt-2 flex flex-col items-center">
                         {{-- <div class="flex items-center mb-2">
@@ -34,18 +28,23 @@
                                 {{ number_format($room->average_rating, 1) }} / 5
                             </span>
                         </div> --}}
-                     
+
 
                         @php
-                            $avgAccuracyCondition = isset($averageRatings['accuracy_condition']) ? $averageRatings['accuracy_condition'] : 0;
+                            $avgAccuracyCondition = isset($averageRatings['accuracy_condition'])
+                                ? $averageRatings['accuracy_condition']
+                                : 0;
                             $avgFacilities = isset($averageRatings['facilities']) ? $averageRatings['facilities'] : 0;
                             $avgPrice = isset($averageRatings['price']) ? $averageRatings['price'] : 0;
-                            $avgRulesFlexibility = isset($averageRatings['rules_flexibility']) ? $averageRatings['rules_flexibility'] : 0;
+                            $avgRulesFlexibility = isset($averageRatings['rules_flexibility'])
+                                ? $averageRatings['rules_flexibility']
+                                : 0;
                         @endphp
 
                         <div class="w-full mt-2">
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Akurasi Kamar :</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Kesesuaian Kamar
+                                    :</span>
                                 @for ($i = 0; $i < 5; $i++)
                                     <svg class="w-4 h-4 {{ $i < $avgAccuracyCondition ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -58,7 +57,8 @@
                                 </span>
                             </div>
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Facilities:</span>
+                                <span
+                                    class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Facilities:</span>
                                 @for ($i = 0; $i < 5; $i++)
                                     <svg class="w-4 h-4 {{ $i < $avgFacilities ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -84,7 +84,8 @@
                                 </span>
                             </div>
                             <div class="flex items-center mb-1">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">aturan kos:</span>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 mr-2">Aturan
+                                    kos:</span>
                                 @for ($i = 0; $i < 5; $i++)
                                     <svg class="w-4 h-4 {{ $i < $avgRulesFlexibility ? 'text-yellow-400' : 'text-gray-300' }}"
                                         viewBox="0 0 20 20" fill="currentColor">
@@ -170,114 +171,111 @@
                             Hubungi Admin
                         </a>
 
-                        @auth
 
-                        @if ($isRatingRequired && $room->id != optional($lastBooking)->room_id)
+
+                        {{-- @if ($isRatingRequired && $room->id != optional($lastBooking)->room_id)
     <a href="{{ route('front.pesanan.rating', [$lastBooking->room->id, $lastBooking->room->slug]) }}">
         <button type="button" class="...">Beri Rating Kamar Sebelumnya</button>
     </a>
 @else
-    <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}">
-        <button type="button" class="...">Pesan Kamar</button>
-    </a>
-@endif
+        <button type="button" id
+        class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Pesan Kamar
+    </button>
+@endif --}}
 
-                       
-                            {{-- @if ()
-                                <a href="{{ route('front.pesanan.rating', [$room->id, $room->slug]) }}">
-                                    <button type="button"
-                                        class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        Pesan Kamar
-                                    </button>
-                                </a>
-                            @else
-                                <button type="button"
-                                    class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    data-overlay="#middle-center-modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    Pesan Kamar
-                                </button>
-                            @endif --}}
+
+                        @auth
+
+                            <!-- Button untuk membuka modal -->
+                            <button type="button"
+                                class="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                                aria-haspopup="dialog" aria-expanded="false" aria-controls="middle-center-modal"
+                                data-overlay="#middle-center-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="mr-2 bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1zm11.854 3.854a.5.5 0 0 0-.708-.708L7.5 11.293 5.854 9.646a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l5-5z" />
+                                </svg>
+                                Pesan kamar
+                            </button>
 
                             <!-- Modal -->
-                            <div id="middle-center-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-                                <div
-                                    class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                                    <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75"
-                                        aria-hidden="true"></div>
-                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
-                                        aria-hidden="true">&#8203;</span>
+                            <div id="middle-center-modal"
+                                class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50"
+                                role="dialog" tabindex="-1">
+                                <div class="w-11/12 max-w-lg bg-white rounded-lg shadow-lg md:w-1/2">
+                                    <!-- Modal Header -->
+                                    <div class="flex items-center justify-between p-4 border-b">
+                                        <h2 class="text-2xl font-semibold text-gray-800">Booking kamar {{ $room->name }}
+                                        </h2>
+                                        <button type="button" class="text-gray-500 hover:text-gray-700" aria-label="Close"
+                                            data-overlay="#middle-center-modal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
 
-                                    <div
-                                        class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                        <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
-                                            <div class="sm:flex sm:items-start">
-                                                <div class="w-full mt-3 text-center sm:mt-0 sm:text-left">
-                                                    <h3 class="text-lg font-medium leading-6 text-gray-900">
-                                                        Booking Kamar {{ $room->name }}
-                                                    </h3>
-
-                                                    <form action="{{ route('front.booking', $room) }}" method="post"
-                                                        class="mt-6">
-                                                        @csrf
-                                                        <div class="space-y-4">
-                                                            <div>
-                                                                <label for="name"
-                                                                    class="block text-sm font-medium text-gray-700">Nama
-                                                                    Penyewa</label>
-                                                                <input type="text" name="name" id="name" required
-                                                                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                            </div>
-
-                                                            <div>
-                                                                <label for="number"
-                                                                    class="block text-sm font-medium text-gray-700">Nomor
-                                                                    Telepon</label>
-                                                                <input type="text" name="number" id="number" required
-                                                                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                            </div>
-
-                                                            <div>
-                                                                <label for="check_in"
-                                                                    class="block text-sm font-medium text-gray-700">Tanggal
-                                                                    Check-in</label>
-                                                                <input type="date" name="check_in" id="check_in"
-                                                                    required
-                                                                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mt-6">
-                                                            <button type="submit"
-                                                                class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                                                                Booking Sekarang
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                    <!-- Modal Body -->
+                                    <div class="p-4 max-h-[70vh] overflow-y-auto">
+                                        <form action="{{ route('front.booking', $room) }}" method="post"
+                                            class="max-w-lg p-6 mx-auto bg-white rounded-lg shadow-md">
+                                            @csrf
+                                            <div class="mb-4">
+                                                <label for="name"
+                                                    class="block text-sm font-medium text-gray-700">Name</label>
+                                                <input type="text" id="name" name="name" required
+                                                    class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                                <!-- Error message for 'name' -->
+                                                <p class="mt-1 text-xs text-red-600">Name penyewa.
+                                                </p>
                                             </div>
-                                        </div>
+
+                                            <div class="mb-4">
+                                                <label for="number"
+                                                    class="block text-sm font-medium text-gray-700">Number</label>
+                                                <input type="text" id="number" name="number" required
+                                                    class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                                <!-- Error message for 'number' -->
+                                                <p class="mt-1 text-xs text-red-600">No telpon penyewa</p>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="check_in"
+                                                    class="block text-sm font-medium text-gray-700">Check-In Date</label>
+                                                <input type="date" id="check_in" name="check_in" required
+                                                    class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                                <!-- Error message for 'check_in' -->
+                                                <p class="mt-1 text-xs text-red-600">Konfirmasi tanggal masuk</p>
+                                            </div>
+
+                                            <!-- Modal Footer -->
+                                            <div class="flex items-center justify-between p-4 border-t">
+                                                <button type="submit"
+                                                    class="w-full text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center">Booking</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         @else
                             <button id="openModal"
-                                class="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                class="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="mr-2 bi bi-cash" viewBox="0 0 16 16">
+                                    <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                                    <path
+                                        d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
                                 </svg>
-                                Ajukan Sewa
+                                Ajukan sewa
                             </button>
 
                             <x-modal.login />
